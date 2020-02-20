@@ -94,6 +94,54 @@ enp0s8: mtu 16000
 4) Изучение MAC.
 - Найти все доступные MAC-адреса в вашей сети (хосты коллег, ресурсов). 
 - Используйте команды arp и ip. 
+arp
+```
+vagrant@EPUAKHAW013DT11:~$ sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'
+Interface: enp0s8, datalink type: EN10MB (Ethernet)
+Starting arp-scan 1.9 with 1024 hosts (http://www.nta-monitor.com/tools/arp-scan/)
+10.23.24.22     00:02:4e:15:b7:35       Datacard Group
+10.23.24.45     08:00:27:96:61:92       CADMUS COMPUTER SYSTEMS
+10.23.24.49     08:00:27:49:0a:dc       CADMUS COMPUTER SYSTEMS
+10.23.24.57     08:00:27:1f:4a:e6       CADMUS COMPUTER SYSTEMS
+10.23.24.63     08:00:27:8c:22:c1       CADMUS COMPUTER SYSTEMS
+10.23.24.81     a8:20:66:23:b2:7d       Apple Inc
+10.23.24.75     a8:20:66:4a:ae:5d       Apple Inc
+10.23.24.77     00:e0:4c:31:2e:6c       REALTEK SEMICONDUCTOR CORP.
+10.23.24.116    08:00:27:32:f5:c4       CADMUS COMPUTER SYSTEMS
+10.23.24.130    68:5b:35:af:cd:bd       Apple inc
+10.23.24.172    08:00:27:c7:03:e9       CADMUS COMPUTER SYSTEMS
+10.23.24.168    e8:e0:b7:e6:07:57       Toshiba
+10.23.24.178    08:00:27:9b:06:ed       CADMUS COMPUTER SYSTEMS
+10.23.24.182    00:24:9b:0b:1c:bf       Action Star Enterprise Co., Ltd.
+10.23.24.192    00:21:b7:4f:71:01       Lexmark International Inc.
+10.23.24.199    08:00:27:ce:e8:6f       CADMUS COMPUTER SYSTEMS
+10.23.26.4      00:e0:4c:68:03:20       REALTEK SEMICONDUCTOR CORP.
+10.23.26.30     08:00:27:a2:e0:3a       CADMUS COMPUTER SYSTEMS
+10.23.26.36     08:00:27:50:7a:80       CADMUS COMPUTER SYSTEMS
+10.23.26.19     b8:27:eb:19:fb:89       Raspberry Pi Foundation
+10.23.26.7      30:f9:ed:57:60:c9       Sony Corporation
+10.23.26.11     3c:d9:2b:a3:06:fe       Hewlett-Packard Company
+10.23.26.12     2c:27:d7:11:cd:60       Hewlett-Packard Company
+10.23.26.48     08:00:27:8c:32:c3       CADMUS COMPUTER SYSTEMS
+10.23.26.66     00:0a:cd:31:30:74       Sunrich Technology Limited
+10.23.26.68     08:00:27:70:93:c5       CADMUS COMPUTER SYSTEMS
+10.23.26.58     10:dd:b1:9e:25:9f       Apple
+10.23.26.82     08:00:27:81:bd:9f       CADMUS COMPUTER SYSTEMS
+10.23.26.85     00:11:85:75:f1:74       Hewlett-Packard Company
+10.23.26.108    08:00:27:41:f3:a9       CADMUS COMPUTER SYSTEMS
+10.23.26.140    08:00:27:a1:c8:e1       CADMUS COMPUTER SYSTEMS
+10.23.26.141    08:00:27:29:e8:04       CADMUS COMPUTER SYSTEMS
+10.23.26.143    08:60:6e:81:76:e8       ASUSTek COMPUTER INC.
+10.23.26.146    08:00:27:66:19:07       CADMUS COMPUTER SYSTEMS
+10.23.26.154    08:00:27:a6:6a:f4       CADMUS COMPUTER SYSTEMS
+10.23.26.158    08:00:27:62:86:ea       CADMUS COMPUTER SYSTEMS
+10.23.26.159    08:00:27:62:86:ea       CADMUS COMPUTER SYSTEMS
+10.23.26.156    08:00:27:25:ba:3f       CADMUS COMPUTER SYSTEMS
+10.23.26.162    08:00:27:86:cc:be       CADMUS COMPUTER SYSTEMS
+
+255 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.9: 1024 hosts scanned in 5.604 seconds (182.73 hosts/sec). 255 responded
+```
 - Реализовать систему автоматического обнаружения изменений в локальной сети. 
 ## 2.1.b.Администрирование
 1.Выполнить статическую настройку интерфейса. 
