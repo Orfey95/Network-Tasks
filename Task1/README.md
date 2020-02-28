@@ -92,8 +92,7 @@ enp0s8: mtu 16000
 Все члены команды должны написать свой скрипт для поиска MTU и выполнить поиск MTU;
 - измените длину очереди передачи и промоделируйте ее работу после изменений. Сделайте несколько изменений
 4) Изучение MAC.
-- Найти все доступные MAC-адреса в вашей сети (хосты коллег, ресурсов). 
-- Используйте команды arp и ip. 
+- Найти все доступные MAC-адреса в вашей сети (хосты коллег, ресурсов).
 arp
 ```
 vagrant@EPUAKHAW013DT11:~$ sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'
@@ -138,9 +137,6 @@ Starting arp-scan 1.9 with 1024 hosts (http://www.nta-monitor.com/tools/arp-scan
 10.23.26.159    08:00:27:62:86:ea       CADMUS COMPUTER SYSTEMS
 10.23.26.156    08:00:27:25:ba:3f       CADMUS COMPUTER SYSTEMS
 10.23.26.162    08:00:27:86:cc:be       CADMUS COMPUTER SYSTEMS
-
-255 packets received by filter, 0 packets dropped by kernel
-Ending arp-scan 1.9: 1024 hosts scanned in 5.604 seconds (182.73 hosts/sec). 255 responded
 ```
 - Реализовать систему автоматического обнаружения изменений в локальной сети. 
 ## 2.1.b.Администрирование
