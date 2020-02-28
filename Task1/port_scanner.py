@@ -14,7 +14,7 @@ def p_scan(port):
     s.settimeout(1)
     try:
         s.connect((server, port))
-        port_list.append(f"{port}/Port {port} is open")
+        port_list.append(f"{port}/Port {port} is OPEN")
         return True
     except:
         port_list.append(f"{port}/Port {port} is close")
