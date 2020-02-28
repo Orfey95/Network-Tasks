@@ -11,8 +11,8 @@ __ERROR_ARGUMENT = 2
 
 def p_scan(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(1)
     try:
-        print(server)
         s.connect((server, port))
         port_list.append(f"{port}/Port {port} is open")
         return True
@@ -82,6 +82,7 @@ def main(argv):
         print("You forgot to specify the parameter -p.")
         sys.exit(__ERROR_ARGUMENT)
     ###########
+    global server
     server = port_opt["server"]
     print(sort_port_list(port_list, port_opt["range_ports"]))
 
