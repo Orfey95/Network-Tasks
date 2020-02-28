@@ -2,6 +2,7 @@ import socket
 import multiprocessing.dummy as mp
 import getopt
 import sys
+from _datetime import datetime
 
 server = str()  # server for scanning
 port_list = list()  # list for output of port scanner
@@ -87,7 +88,7 @@ def main(argv):
         print("An error occurred while specifying program parameters. "
               "To specify the correctness, specify the -h or --help option")
         sys.exit(__ERROR_ARGUMENT)
-    print(opts)
+    # print(opts)
     port_opt = dict()
     port_opt["check_server"] = False
     port_opt["check_port"] = False
@@ -111,7 +112,9 @@ def main(argv):
     ###########
     global server
     server = port_opt["server"]
+    start = datetime.now()
     print(sort_port_list(port_list, port_opt["range_ports"]))
+    print("\nTime spent:", datetime.now() - start)
 
 
 if __name__ == "__main__":
