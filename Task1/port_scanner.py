@@ -12,6 +12,7 @@ __ERROR_ARGUMENT = 2
 def p_scan(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
+        print(server)
         s.connect((server, port))
         port_list.append(f"{port}/Port {port} is open")
         return True
@@ -68,8 +69,10 @@ def main(argv):
             manual()
             sys.exit(__SUCCESSFUL)
         elif opt in ("-s", "--server"):
+            port_opt["check_server"] = True
             port_opt["server"] = arg
         elif opt in ("-p", "--port"):
+            port_opt["check_port"] = True
             port_opt["range_ports"] = arg
     #  Check pair parameters
     if not port_opt["check_server"]:
