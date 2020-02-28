@@ -139,6 +139,46 @@ Starting arp-scan 1.9 with 1024 hosts (http://www.nta-monitor.com/tools/arp-scan
 10.23.26.162    08:00:27:86:cc:be       CADMUS COMPUTER SYSTEMS
 ```
 - Реализовать систему автоматического обнаружения изменений в локальной сети. 
+```
+watch -n 1 "sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'"
+Every 1.0s: sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'   
+Interface: enp0s8, datalink type: EN10MB (Ethernet)
+Starting arp-scan 1.9 with 1024 hosts (http://www.nta-monitor.com/tools/arp-scan/)
+10.23.24.22     00:02:4e:15:b7:35       Datacard Group
+10.23.24.57     08:00:27:1f:4a:e6       CADMUS COMPUTER SYSTEMS
+10.23.24.75     a8:20:66:4a:ae:5d       Apple Inc
+10.23.24.66     00:e0:4c:36:07:2e       REALTEK SEMICONDUCTOR CORP.
+10.23.24.81     a8:20:66:23:b2:7d       Apple Inc
+10.23.24.116    08:00:27:32:f5:c4       CADMUS COMPUTER SYSTEMS
+10.23.24.127    08:00:27:5e:2d:7b       CADMUS COMPUTER SYSTEMS
+10.23.24.134    08:00:27:5d:08:24       CADMUS COMPUTER SYSTEMS
+10.23.24.130    68:5b:35:af:cd:bd       Apple inc
+10.23.24.143    08:00:27:d5:6b:6c       CADMUS COMPUTER SYSTEMS
+10.23.24.161    08:00:27:9a:e1:56       CADMUS COMPUTER SYSTEMS
+10.23.24.165    08:00:27:d8:1a:0e       CADMUS COMPUTER SYSTEMS
+10.23.24.162    08:00:27:a4:6d:52       CADMUS COMPUTER SYSTEMS
+10.23.24.169    08:00:27:75:f7:07       CADMUS COMPUTER SYSTEMS
+10.23.24.182    00:24:9b:0b:1c:bf       Action Star Enterprise Co., Ltd.
+10.23.24.192    00:21:b7:4f:71:01       Lexmark International Inc.
+10.23.24.199    08:00:27:ce:e8:6f       CADMUS COMPUTER SYSTEMS
+10.23.26.4      00:e0:4c:68:03:20       REALTEK SEMICONDUCTOR CORP.
+10.23.26.19     b8:27:eb:19:fb:89       Raspberry Pi Foundation
+10.23.26.12     2c:27:d7:11:cd:60       Hewlett-Packard Company
+10.23.26.42     08:00:27:25:ba:3f       CADMUS COMPUTER SYSTEMS
+10.23.26.66     00:0a:cd:31:30:74       Sunrich Technology Limited
+10.23.26.58     10:dd:b1:9e:25:9f       Apple
+10.23.26.82     08:00:27:81:bd:9f       CADMUS COMPUTER SYSTEMS
+10.23.26.85     00:11:85:75:f1:74       Hewlett-Packard Company
+10.23.26.101    08:00:27:22:14:cf       CADMUS COMPUTER SYSTEMS
+10.23.26.134    08:00:27:95:31:0e       CADMUS COMPUTER SYSTEMS
+10.23.26.141    08:00:27:29:e8:04       CADMUS COMPUTER SYSTEMS
+10.23.26.143    08:60:6e:81:76:e8       ASUSTek COMPUTER INC.
+10.23.26.146    08:00:27:66:19:07       CADMUS COMPUTER SYSTEMS
+10.23.26.158    52:54:00:8a:fe:e6       QEMU
+10.23.26.159    52:54:00:8a:fe:e6       QEMU
+10.23.26.164    08:00:27:14:6e:04       CADMUS COMPUTER SYSTEMS
+10.23.26.11     3c:d9:2b:a3:06:fe       Hewlett-Packard Company
+```
 ## 2.1.b.Администрирование
 1.Выполнить статическую настройку интерфейса. <br>
 a.Установить временный статический IP-адрес. 
