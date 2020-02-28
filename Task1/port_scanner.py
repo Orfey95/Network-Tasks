@@ -3,13 +3,19 @@ import multiprocessing.dummy as mp
 import getopt
 import sys
 
-server = str()
-port_list = list()
+server = str()  # server for scanning
+port_list = list()  # list for output of port scanner
 __SUCCESSFUL = 0
 __ERROR_ARGUMENT = 2
 
 
 def p_scan(port):
+    """port scanner
+    :param port: int
+        port for scanning
+    :return: bool
+        port status check
+    """
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(1)
     try:
@@ -22,15 +28,28 @@ def p_scan(port):
 
 
 def port_scanner_threads(range_ports):
+    """port scan distribution on threads
+    :param range_ports: str
+        range of ports for scanning
+    :return: 0
+    """
     start_number = int(str(range_ports).split("-")[0])
     end_number = int(str(range_ports).split("-")[1]) + 1
-    p = mp.Pool(4)
+    p = mp.Pool(8)
     p.map(p_scan, range(start_number, end_number))
     p.close()
     p.join()
 
 
 def sort_port_list(input_list, range_ports):
+    """sort output by port number
+    :param input_list: list
+        list for sorting
+    :param range_ports: str
+        range of ports for scanning
+    :return: str
+        string of sorted list divided \n
+    """
     port_scanner_threads(range_ports)
     input_list = [i.split('/') for i in input_list]
     input_list = sorted(input_list, key=lambda x: int(x[0]))
@@ -39,6 +58,9 @@ def sort_port_list(input_list, range_ports):
 
 
 def manual():
+    """function of help
+    :return: 0
+    """
     print('DESCRIPTION')
     print('\tThe program for port scanning.\n')
     print('\t-s, --server <server> \n\t\t specifying the server for scanning')
@@ -54,6 +76,11 @@ def manual():
 
 
 def main(argv):
+    """Function for processing script parameters
+        :param argv: list
+            Arguments of script
+        :return: 0
+    """
     try:
         opts, args = getopt.getopt(argv, "hs:p:", ["help", "server=", "port="])
     except getopt.GetoptError:
@@ -74,7 +101,7 @@ def main(argv):
         elif opt in ("-p", "--port"):
             port_opt["check_port"] = True
             port_opt["range_ports"] = arg
-    #  Check pair parameters
+    #  Check parameters
     if not port_opt["check_server"]:
         print("You forgot to specify the parameter -s.")
         sys.exit(__ERROR_ARGUMENT)
