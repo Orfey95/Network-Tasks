@@ -339,15 +339,31 @@ HTTP (TCP’s segments)
 1) Выполнить мониторинг сетевой активности локальной системы (команда netstat, ss, iptraf, nc)
 - Выявить активные соединения
 ```
-
+vagrant@networks1:~$ ss -t
+State   Recv-Q    Send-Q        Local Address:Port        Peer Address:Port
+ESTAB   0         0                 10.0.2.15:ssh             10.0.2.2:58475
 ```
 - Проанализировать открытые порты (UDP, TCP). Дать их классификацию
+TCP
 ```
-
+vagrant@networks1:~$ ss -tan | grep -v ESTAB
+State    Recv-Q    Send-Q        Local Address:Port       Peer Address:Port
+LISTEN   0         128           127.0.0.53%lo:53              0.0.0.0:*
+LISTEN   0         128                 0.0.0.0:22              0.0.0.0:*
+LISTEN   0         128                    [::]:22                 [::]:*
+```
+UDP
+```
+vagrant@networks1:~$ ss -uan
+State   Recv-Q   Send-Q             Local Address:Port      Peer Address:Port
+UNCONN  0        0                  127.0.0.53%lo:53             0.0.0.0:*
+UNCONN  0        0           192.168.0.103%enp0s8:68             0.0.0.0:*
+UNCONN  0        0               10.0.2.15%enp0s3:68             0.0.0.0:*
 ```
 - Объяснить в каком состоянии находятся сетевые соединение
 ```
-
+ESTAB - (both server and client) represents an open connection, data received can be delivered to the user.
+LISTEN - (server) represents waiting for a connection request from any remote TCP and port.
 ```
 - Определить основные, запущенные сетевые службы (процессы). Какие их них
 работают в режиме сервера
@@ -361,11 +377,30 @@ HTTP (TCP’s segments)
 2) Выполнить проверку портов (netstat, ss, iptraf, nc):
 - на локальном хосте
 ```
+vagrant@networks1:~$ nmap 192.168.0.103
 
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-02-29 08:14 UTC
+Nmap scan report for 192.168.0.103
+Host is up (0.00065s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 10.27 seconds
 ```
 - на удаленном хосте
 ```
+vagrant@networks1:~$ nmap 8.8.8.8
 
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-02-29 08:15 UTC
+Nmap scan report for dns.google (8.8.8.8)
+Host is up (0.041s latency).
+Not shown: 998 filtered ports
+PORT    STATE SERVICE
+53/tcp  open  domain
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 6.40 seconds
 ```
 - \* Реализовать программный способ проверки портов. Можно использовать только
 (java, python, ruby).
