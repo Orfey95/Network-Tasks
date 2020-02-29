@@ -21,12 +21,12 @@ def p_scan(port):
     s.settimeout(1)
     try:
         s.connect((server, port))
-        port_list.append(f"{port}/Port {port} is OPEN")
+        port_list.append(f"Port {port} is OPEN")
         return True
     except Exception as ex:
         if ex.args[0] == 'timed out':
             pass
-        port_list.append(f"{port}/Port {port} is close")
+        port_list.append(f"Port {port} is close")
         return False
 
 
@@ -54,9 +54,9 @@ def sort_port_list(input_list, range_ports):
         string of sorted list divided \n
     """
     port_scanner_threads(range_ports)
-    input_list = [i.split('/') for i in input_list]
-    input_list = sorted(input_list, key=lambda x: int(x[0]))
-    input_list = [item[1] for item in input_list]
+    input_list = [i.split(' ') for i in input_list]
+    input_list = sorted(input_list, key=lambda x: int(x[1]))
+    input_list = [" ".join(item) for item in input_list]
     return "\n".join(input_list)
 
 
