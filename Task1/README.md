@@ -252,7 +252,13 @@ vagrant@task1:~$ ip a show enp0s8
 ```
 Перехватить трафик, моделирующий работу протокола ARP. <br>
 ```
-
+vagrant@networks1:~$ sudo tcpdump -i any arp
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+11:04:50.387335 ARP, Request who-has 192.168.0.103 tell 192.168.0.1, length 46
+11:04:50.387412 ARP, Reply 192.168.0.103 is-at 08:00:27:a6:f3:e2 (oui Unknown), length 28
+11:04:55.406575 ARP, Request who-has 192.168.0.1 tell 192.168.0.103, length 28
+11:04:55.409951 ARP, Reply 192.168.0.1 is-at f8:1a:67:49:0a:ee (oui Unknown), length 46
 ```
 - Найти пакеты IP <br>
 
@@ -266,7 +272,17 @@ vagrant@task1:~$ ip a show enp0s8
 ```
 Найти пакеты, которые являются (unicast, broadcast, multicast)
 ```
-
+vagrant@networks1:~$ sudo tcpdump -i any ip broadcast
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+10:56:47.118278 IP 192.168.0.103 > 255.255.255.255: ICMP echo request, id 4365, seq 1, length 64
+10:56:48.143716 IP 10.0.2.15 > 255.255.255.255: ICMP echo request, id 4365, seq 2, length 64
+10:56:49.167026 IP 192.168.0.103 > 255.255.255.255: ICMP echo request, id 4365, seq 3, length 64
+10:56:50.189932 IP 10.0.2.15 > 255.255.255.255: ICMP echo request, id 4365, seq 4, length 64
+10:56:51.215249 IP 192.168.0.103 > 255.255.255.255: ICMP echo request, id 4365, seq 5, length 64
+10:56:52.238449 IP 10.0.2.15 > 255.255.255.255: ICMP echo request, id 4365, seq 6, length 64
+10:56:53.262477 IP 10.0.2.15 > 255.255.255.255: ICMP echo request, id 4365, seq 7, length 64
+10:56:57.334674 IP 10.0.2.15 > 255.255.255.255: ICMP echo request, id 4365, seq 11, length 64
 ```
 - Найти сегменты:
 
