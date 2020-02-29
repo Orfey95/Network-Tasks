@@ -293,7 +293,20 @@ vagrant@networks1:~$ ip a show enp0s10
 ```
 2) Настроить адрес шлюза. В случае нескольких интерфейсов как работают шлюзы. <br>
 ```
-
+vagrant@networks1:~$ cat /etc/netplan/50-vagrant.yaml
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      dhcp4: true
+      addresses: [ 10.23.23.121/29 ]
+    enp0s10:
+      dhcp4: no
+      macaddress: 52:54:00:6b:3c:59
+      addresses: [ 10.23.23.121/29 ]
+      gateway4: 192.168.0.103
 ```
 3) Назначение маски на хосте и на роутере. <br>
 ```
