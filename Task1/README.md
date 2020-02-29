@@ -230,7 +230,26 @@ vagrant@networks1:~$ ip a show enp0s8
 ```
 - Установить статический IP-адрес с минимально допустимой маской для сети с количеством компьютеров 2^(<последнее число вашего ID-пропуска>). <br>
 ```
-
+vagrant@networks1:~$ cat /etc/netplan/50-vagrant.yaml
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      dhcp4: true
+      addresses: [ 10.23.23.121/29 ]
+```
+```
+vagrant@networks1:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:39:91:a2 brd ff:ff:ff:ff:ff:ff
+    inet 10.23.23.121/29 brd 10.23.23.127 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet 192.168.0.106/24 brd 192.168.0.255 scope global dynamic enp0s8
+       valid_lft 7197sec preferred_lft 7197sec
+    inet6 fe80::a00:27ff:fe39:91a2/64 scope link
+       valid_lft forever preferred_lft forever
 ```
 - Способы изменения MAC-адреса в операционных системах. Установить локально администрируемый MAC-адрес. <br>
 ```
