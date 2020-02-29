@@ -252,12 +252,44 @@ vagrant@networks1:~$ ip a show enp0s8
        valid_lft forever preferred_lft forever
 ```
 - Способы изменения MAC-адреса в операционных системах. Установить локально администрируемый MAC-адрес. <br>
-```
 
+Способ 1
 ```
-- Проверить выполненное с помощью команды ip and ipconfig (ifconfig). <br>
+vagrant@networks1:~$ sudo ip link set dev enp0s8 address 74:d0:3b:9f:d8:48
+vagrant@networks1:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 74:d0:3b:9f:d8:48 brd ff:ff:ff:ff:ff:ff
+    inet 10.23.23.121/29 brd 10.23.23.127 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet 192.168.0.103/24 brd 192.168.0.255 scope global dynamic enp0s8
+       valid_lft 7162sec preferred_lft 7162sec
+    inet6 fe80::a00:27ff:fe39:91a2/64 scope link
+       valid_lft forever preferred_lft forever
 ```
-
+Способ 2
+```
+vagrant@networks1:~$ cat /etc/netplan/50-vagrant.yaml
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      dhcp4: true
+      addresses: [ 10.23.23.121/29 ]
+    enp0s10:
+      dhcp4: no
+      macaddress: 52:54:00:6b:3c:59
+      addresses: [ 10.23.23.121/29 ]
+```
+```
+vagrant@networks1:~$ ip a show enp0s10
+4: enp0s10: <BROADCAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/ether 52:54:00:6b:3c:59 brd ff:ff:ff:ff:ff:ff
+    inet 10.23.23.121/29 brd 10.23.23.127 scope global enp0s10
+       valid_lft forever preferred_lft forever
+    inet6 fe80::4caa:3fff:fe63:ab88/64 scope link
+       valid_lft forever preferred_lft forever
 ```
 2) Настроить адрес шлюза. В случае нескольких интерфейсов как работают шлюзы. <br>
 ```
