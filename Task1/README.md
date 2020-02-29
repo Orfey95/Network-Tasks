@@ -422,5 +422,15 @@ Nmap done: 1 IP address (1 host up) scanned in 6.40 seconds
 - \* Реализовать программный способ проверки портов. Можно использовать только
 (java, python, ruby).
 ```
+C:\Users\Aleksandr\PycharmProjects\network\venv\Scripts\python.exe C:/Users/Aleksandr/PycharmProjects/network/port_scanner.py -s google.com -p 440-445
+Port 440 is close
+Port 441 is close
+Port 442 is close
+Port 443 is OPEN
+Port 444 is close
+Port 445 is close
 
+Time spent: 0:00:01.124588
+
+Process finished with exit code 0
 ```
