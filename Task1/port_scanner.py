@@ -23,7 +23,9 @@ def p_scan(port):
         s.connect((server, port))
         port_list.append(f"{port}/Port {port} is OPEN")
         return True
-    except:
+    except Exception as ex:
+        if ex.args[0] == 'timed out':
+            pass
         port_list.append(f"{port}/Port {port} is close")
         return False
 
