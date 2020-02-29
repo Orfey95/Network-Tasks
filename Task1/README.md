@@ -343,7 +343,7 @@ vagrant@networks1:~$ ss -t
 State   Recv-Q    Send-Q        Local Address:Port        Peer Address:Port
 ESTAB   0         0                 10.0.2.15:ssh             10.0.2.2:58475
 ```
-- Проанализировать открытые порты (UDP, TCP). Дать их классификацию
+- Проанализировать открытые порты (UDP, TCP). Дать их классификацию <br>
 TCP
 ```
 vagrant@networks1:~$ ss -tan | grep -v ESTAB
