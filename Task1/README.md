@@ -315,6 +315,8 @@ network:
 In order for hosts to exchange information, they must be on 
 the same network (same network address and subnet mask).
 
+The subnet mask on the router is used for communication between 
+networks (with different subnet masks).
 ```
 ## 1.c. Анализ трафика
 1) Выполнить в ОС Windows и Linux
