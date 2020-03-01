@@ -474,11 +474,20 @@ LISTEN - (server) represents waiting for a connection request from any remote TC
 - Определить основные, запущенные сетевые службы (процессы). Какие их них
 работают в режиме сервера
 ```
-
+vagrant@networks1:~$ ss -atu
+NetidState   Recv-Q  Send-Q           Local Address:Port     Peer Address:Port
+udp  UNCONN  0       0                127.0.0.53%lo:domain        0.0.0.0:*
+udp  UNCONN  0       0         192.168.0.103%enp0s8:bootpc        0.0.0.0:*
+udp  UNCONN  0       0             10.0.2.15%enp0s3:bootpc        0.0.0.0:*
+tcp  LISTEN  0       128              127.0.0.53%lo:domain        0.0.0.0:*
+tcp  LISTEN  0       128                    0.0.0.0:ssh           0.0.0.0:*
+tcp  ESTAB   0       0                    10.0.2.15:ssh          10.0.2.2:62947
+tcp  LISTEN  0       128                       [::]:ssh              [::]:*
 ```
 - Объяснить в каком состоянии находится соединение
 ```
-
+ESTAB - (both server and client) represents an open connection, data received can be delivered to the user.
+LISTEN - (server) represents waiting for a connection request from any remote TCP and port.
 ```
 2) Выполнить проверку портов (netstat, ss, iptraf, nc):
 - на локальном хосте
