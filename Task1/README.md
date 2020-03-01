@@ -312,10 +312,9 @@ network:
 ```
 3) Назначение маски на хосте и на роутере. <br>
 ```
-In order for hosts to exchange information, they must be on the same network (same network address and subnet mask).
-Example:
-192.168.0.102/16 | not in 
-192.168.0.101/24 | the same subnet
+In order for hosts to exchange information, they must be on 
+the same network (same network address and subnet mask).
+
 ```
 ## 1.c. Анализ трафика
 1) Выполнить в ОС Windows и Linux
