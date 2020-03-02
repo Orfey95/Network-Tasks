@@ -33,24 +33,24 @@
 Используя утилиту curl написать запросы: 
 1) создание нового проекта
 ```
-
+https://gitlab.com/api/v4/projects?name=new_project&private_token=<access_token>
 ```
 2) удаление проекта 
 ```
-
+https://gitlab.com/api/v4/projects/17236099?private_token=<access_token>
 ```
 3) добавления пользователей с различными ролями 
 ```
-
+https://gitlab.com/api/v4/projects/17236085/members?user_id=3496872&access_level=30&private_token=<access_token>
 ```
 4) создание issue и назначение его определенному пользователю 
 ```
-
+https://gitlab.com/api/v4/projects/17236085/issues?title=test_issue&assignee_ids=3496872&private_token=<access_token>
 ```
 5) получение списка пользователей 
 - весь
 ```
-
+https://gitlab.com/api/v4/projects/17236085/members?private_token=<access_token>
 ```
 - с определенными правами
 ```
