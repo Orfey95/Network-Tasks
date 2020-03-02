@@ -49,13 +49,13 @@ curl -X POST --header "Private-Token: <access_token>" --data "user_id=3496872&ac
 4) создание issue и назначение его определенному пользователю 
 ```
 https://gitlab.com/api/v4/projects/17236085/issues?title=test_issue&assignee_ids=3496872&private_token=<access_token>
-curl -X POST --header "Private-Token: 2hQuku5zYXvrgniuFMHL" --data "title=test_issue&assignee_ids=3496872" https://gitlab.com/api/v4/projects/17243684/issues
+curl -X POST --header "Private-Token: <access_token>" --data "title=test_issue&assignee_ids=3496872" https://gitlab.com/api/v4/projects/17243684/issues
 ```
 5) получение списка пользователей 
 - весь
 ```
 https://gitlab.com/api/v4/projects/17236085/members?private_token=<access_token>
-curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members
+curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243684/members
 ```
 - с определенными правами
 ```
@@ -64,7 +64,7 @@ vagrant@networks1:~$ curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" 
 6) работа с коммитами
 - получить список всех комментариев коммита 
 ```
-
+curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/repository/commits/ada258601aaa37b723cdd5f3a34f51d9bc5beab5/comments
 ```
 - вставить комментарий в commit в определённую строку от имени пользователя 
 ```
