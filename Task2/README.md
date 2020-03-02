@@ -59,7 +59,7 @@ curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/p
 ```
 - с определенными правами
 ```
-vagrant@networks1:~$ curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members | jq '.[] | select(.access_level==30)'
+curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members | jq '.[] | select(.access_level==30)'
 ```
 6) работа с коммитами
 - получить список всех комментариев коммита 
