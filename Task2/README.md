@@ -34,27 +34,32 @@
 1) создание нового проекта
 ```
 https://gitlab.com/api/v4/projects?name=new_project&private_token=<access_token>
+curl -X POST --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects?name=new_project
 ```
 2) удаление проекта 
 ```
 https://gitlab.com/api/v4/projects/17236099?private_token=<access_token>
+curl -X DELETE --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243623
 ```
 3) добавления пользователей с различными ролями 
 ```
 https://gitlab.com/api/v4/projects/17236085/members?user_id=3496872&access_level=30&private_token=<access_token>
+curl -X POST --header "Private-Token: <access_token>" --data "user_id=3496872&access_level=30" https://gitlab.com/api/v4/projects/17243684/members
 ```
 4) создание issue и назначение его определенному пользователю 
 ```
 https://gitlab.com/api/v4/projects/17236085/issues?title=test_issue&assignee_ids=3496872&private_token=<access_token>
+curl -X POST --header "Private-Token: 2hQuku5zYXvrgniuFMHL" --data "title=test_issue&assignee_ids=3496872" https://gitlab.com/api/v4/projects/17243684/issues
 ```
 5) получение списка пользователей 
 - весь
 ```
 https://gitlab.com/api/v4/projects/17236085/members?private_token=<access_token>
+curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members
 ```
 - с определенными правами
 ```
-
+vagrant@networks1:~$ curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members | jq '.[] | select(.access_level==30)'
 ```
 6) работа с коммитами
 - получить список всех комментариев коммита 
