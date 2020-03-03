@@ -343,10 +343,10 @@ networks (with different subnet masks).
 
 Определить чей он и какой вид трафика
 ```
-It is unicast!
+It is broadcast!
 ```
 ![Logo](images/IP.png)
-Найти входящий и исходящий ip пакет
+Найти входящий и исходящий ip пакет<br>
 Input<br>
 ![Logo](images/IP_input.png)
 Output<br>
@@ -354,7 +354,7 @@ Output<br>
 Найти пакеты, которые являются (unicast, broadcast, multicast)
 
 unicast
-![Logo](images/)
+![Logo](images/IP_unicast.png)
 broadcast
 ![Logo](images/IP.png)
 multicast
@@ -362,9 +362,7 @@ multicast
 - Найти сегменты:
 
 TCP которые подтверждают процесс установки соединения (handshaking)
-```
-
-```
+![Logo](images/TCP_handshake.png)
 TCP которые подтверждают процесс передачи данных соединения
 (ESTABLISHED)
 ```
@@ -396,9 +394,7 @@ DNS (UDP/TCP дейтаграммы)
 
 ```
 DHCP (UDP/TCP дейтаграммы)
-```
-
-```
+![Logo](images/DHCP.png)
 HTTP (TCP’s segments)
 ```
 
