@@ -34,28 +34,28 @@
 1) создание нового проекта
 ```
 https://gitlab.com/api/v4/projects?name=new_project&private_token=<access_token>
-curl -X POST --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects?name=new_project
+curl -X POST --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects?name=new_project | jq ''
 ```
 2) удаление проекта 
 ```
 https://gitlab.com/api/v4/projects/17236099?private_token=<access_token>
-curl -X DELETE --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243623
+curl -X DELETE --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243623 | jq ''
 ```
 3) добавления пользователей с различными ролями 
 ```
 https://gitlab.com/api/v4/projects/17236085/members?user_id=3496872&access_level=30&private_token=<access_token>
-curl -X POST --header "Private-Token: <access_token>" --data "user_id=3496872&access_level=30" https://gitlab.com/api/v4/projects/17243684/members
+curl -X POST --header "Private-Token: <access_token>" --data "user_id=3496872&access_level=30" https://gitlab.com/api/v4/projects/17243684/members | jq ''
 ```
 4) создание issue и назначение его определенному пользователю 
 ```
 https://gitlab.com/api/v4/projects/17236085/issues?title=test_issue&assignee_ids=3496872&private_token=<access_token>
-curl -X POST --header "Private-Token: <access_token>" --data "title=test_issue&assignee_ids=3496872" https://gitlab.com/api/v4/projects/17243684/issues
+curl -X POST --header "Private-Token: <access_token>" --data "title=test_issue&assignee_ids=3496872" https://gitlab.com/api/v4/projects/17243684/issues | jq ''
 ```
 5) получение списка пользователей 
 - весь
 ```
 https://gitlab.com/api/v4/projects/17236085/members?private_token=<access_token>
-curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243684/members
+curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243684/members | jq ''
 ```
 - с определенными правами
 ```
@@ -64,11 +64,11 @@ curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/ap
 6) работа с коммитами
 - получить список всех комментариев коммита 
 ```
-curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/repository/commits/ada258601aaa37b723cdd5f3a34f51d9bc5beab5/comments
+curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/repository/commits/ada258601aaa37b723cdd5f3a34f51d9bc5beab5/comments | jq ''
 ```
 - вставить комментарий в commit в определённую строку от имени пользователя 
 ```
-curl -X POST --header "PRIVATE-TOKEN: 2hQuku5zYXvrgniuFMHL" --data "note=TEST&path=README.md&line=11&line_type=new" https://gitlab.com/api/v4/projects/17243684/repository/commits/f0db5a25a1ee29a2627d5199b2458005b0eb1aad/comments | jq ''
+curl -X POST --header "PRIVATE-TOKEN: 2hQuku5zYXvrgniuFMHL" --data "note=TEST&path=README.md&line=6&line_type=new" https://gitlab.com/api/v4/projects/17243684/repository/commits/f0db5a25a1ee29a2627d5199b2458005b0eb1aad/comments | jq ''
 ```
 Написать скрипты на bash и Python, параметры должны передаваться из командной строки: 
 - создать новый проект с заданным именем в определенной группе; 
