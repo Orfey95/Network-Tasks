@@ -352,10 +352,11 @@ Input<br>
 Output<br>
 ![Logo](images/IP_output.png)
 Найти пакеты, которые являются (unicast, broadcast, multicast)
+
 unicast
-![Logo](images/IP.png)
-broadcast
 ![Logo](images/)
+broadcast
+![Logo](images/IP.png)
 multicast
 ![Logo](images/IP_multicast.png)
 - Найти сегменты:
