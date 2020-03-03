@@ -67,7 +67,15 @@ Server: Apache/2.4.29 (Ubuntu)
 Allow: POST,OPTIONS,HEAD,GET
 Content-Length: 283
 ```
-Status 
+Status 202
+```
+vagrant@EPUAKHAW013DT11:~$ curl -Is -X DELETE --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17259462 | head -n 5
+HTTP/1.1 202 Accepted
+Server: nginx
+Date: Tue, 03 Mar 2020 13:27:53 GMT
+Content-Type: application/json
+Content-Length: 26
+```
 2) Описать назначение всех атрибутов в client request and server response. На примере одного из HTTP request/response описать все header’s атрибуты. 
 ```
 
