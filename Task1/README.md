@@ -95,7 +95,9 @@ enp0s8: mtu 16000
 не  сообщают  его  третьему  участнику.  Третий  член  команды  должен вычислить MTU канала связи. (Описать процесс вычисления). 
 Все члены команды должны написать свой скрипт для поиска MTU и выполнить поиск MTU;
 ```
-
+Select the starting package size.
+If it sent successfully, select a larger packet size.
+If the package does not receive, then reduce its size by 1 byte until it passes.
 ```
 - измените длину очереди передачи и промоделируйте ее работу после изменений. Сделайте несколько изменений.
 
