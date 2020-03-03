@@ -508,6 +508,15 @@ vagrant@EPUAKHAW013DT11:~$ ss -tn
 State Recv-Q   Send-Q      Local Address:Port     Peer Address:Port
 ESTAB 0        0               10.0.2.15:22           10.0.2.2:53901
 ```
+```
+vagrant@EPUAKHAW013DT11:~$ nc -vnz 10.23.24.90 20-25
+nc: connect to 10.23.24.90 port 20 (tcp) failed: Connection refused
+nc: connect to 10.23.24.90 port 21 (tcp) failed: Connection refused
+Connection to 10.23.24.90 22 port [tcp/*] succeeded!
+nc: connect to 10.23.24.90 port 23 (tcp) failed: Connection refused
+nc: connect to 10.23.24.90 port 24 (tcp) failed: Connection refused
+nc: connect to 10.23.24.90 port 25 (tcp) failed: Connection refused
+```
 - на удаленном хосте
 ```
 vagrant@networks1:~$ nmap 8.8.8.8
@@ -521,6 +530,10 @@ PORT    STATE SERVICE
 443/tcp open  https
 
 Nmap done: 1 IP address (1 host up) scanned in 6.40 seconds
+```
+```
+vagrant@EPUAKHAW013DT11:~$ nc -vnz 8.8.8.8 443
+Connection to 8.8.8.8 443 port [tcp/*] succeeded!
 ```
 - \* Реализовать программный способ проверки портов. Можно использовать только
 (java, python, ruby).
