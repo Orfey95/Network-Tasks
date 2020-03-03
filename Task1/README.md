@@ -503,6 +503,11 @@ PORT   STATE SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 10.27 seconds
 ```
+```
+vagrant@EPUAKHAW013DT11:~$ ss -tn
+State Recv-Q   Send-Q      Local Address:Port     Peer Address:Port
+ESTAB 0        0               10.0.2.15:22           10.0.2.2:53901
+```
 - на удаленном хосте
 ```
 vagrant@networks1:~$ nmap 8.8.8.8
