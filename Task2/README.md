@@ -1,9 +1,73 @@
 ## Исследование HTTP протокола 
 
 1) Найти в интернете 8 различных status code HTTP. В запросе и ответе должно содержаться не менее 5 header’s атрибутов. 
-```
 
+Status 200
 ```
+vagrant@EPUAKHAW013DT11:~$ curl -Is https://stackoverflow.com/questions/14581488/extract-url-from-google | head -n 5
+HTTP/2 200
+cache-control: private
+content-type: text/html; charset=utf-8
+last-modified: Mon, 25 Nov 2019 02:38:15 GMT
+x-frame-options: SAMEORIGIN
+```
+Status 404
+```
+vagrant@EPUAKHAW013DT11:~$ curl -Is https://stackoverflow.com/qu/ | head -n 5
+HTTP/2 404
+cache-control: private
+content-type: text/html; charset=utf-8
+x-frame-options: SAMEORIGIN
+x-request-guid: f1c091b3-ac89-4ccd-b9d3-e28c9418bbc4
+```
+Status 301
+```
+vagrant@EPUAKHAW013DT11:~$ curl -Is http://stackoverflow.com/qu/ | head -n 5
+HTTP/1.1 301 Moved Permanently
+Content-Type: text/html; charset=utf-8
+Location: https://stackoverflow.com/qu/
+X-Request-Guid: 42ecd57d-2b43-4af1-90c6-33f6d6b0ffdc
+Feature-Policy: microphone 'none'; speaker 'none'
+```
+Status 405
+```
+vagrant@EPUAKHAW013DT11:~$ curl -X POST -Is https://web.telegram.org
+HTTP/1.1 405 Not Allowed
+Server: nginx/1.16.1
+Date: Tue, 03 Mar 2020 12:50:04 GMT
+Content-Type: text/html
+Content-Length: 157
+Connection: keep-alive
+X-Frame-Options: deny
+```
+Status 401
+```
+vagrant@EPUAKHAW013DT11:~$ curl -X GET -Is https://gitlab.com/api/v4/projects/17236085/users?private_token=72BPRFMpK | head -n 5
+HTTP/1.1 401 Unauthorized
+Server: nginx
+Date: Tue, 03 Mar 2020 12:54:31 GMT
+Content-Type: application/json
+Content-Length: 30
+```
+Status 400
+```
+vagrant@EPUAKHAW013DT11:~$ curl -X GET -Is https://ru.wikipedia.org/wiki/%dfgdf | head -n 5
+HTTP/2 400
+date: Tue, 03 Mar 2020 13:02:45 GMT
+content-type: text/html; charset=UTF-8
+server: mw1257.eqiad.wmnet
+x-powered-by: PHP/7.2.26-1+0~20191218.33+debian9~1.gbpb5a340+wmf1
+```
+Status 501
+```
+vagrant@EPUAKHAW013DT11:~$ curl -X PURGE -Is http://10.23.26.135:80 | head -n 5
+HTTP/1.1 501 Not Implemented
+Date: Tue, 03 Mar 2020 13:13:09 GMT
+Server: Apache/2.4.29 (Ubuntu)
+Allow: POST,OPTIONS,HEAD,GET
+Content-Length: 283
+```
+Status 
 2) Описать назначение всех атрибутов в client request and server response. На примере одного из HTTP request/response описать все header’s атрибуты. 
 ```
 
