@@ -68,7 +68,7 @@ curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/ap
 ```
 - вставить комментарий в commit в определённую строку от имени пользователя 
 ```
-
+curl -X POST --header "PRIVATE-TOKEN: 2hQuku5zYXvrgniuFMHL" --data "note=TEST&path=README.md&line=11&line_type=new" https://gitlab.com/api/v4/projects/17243684/repository/commits/f0db5a25a1ee29a2627d5199b2458005b0eb1aad/comments | jq ''
 ```
 Написать скрипты на bash и Python, параметры должны передаваться из командной строки: 
 - создать новый проект с заданным именем в определенной группе; 
