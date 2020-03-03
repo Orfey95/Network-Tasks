@@ -345,15 +345,17 @@ It is unicast!
 ```
 ![Logo](images/IP.png)
 Найти входящий и исходящий ip пакет
-
 Input<br>
 ![Logo](images/IP_input.png)
 Output<br>
 ![Logo](images/IP_output.png)
 Найти пакеты, которые являются (unicast, broadcast, multicast)
-```
-
-```
+unicast
+![Logo](images/IP.png)
+broadcast
+![Logo](images/)
+multicast
+![Logo](images/IP_multicast.png)
 - Найти сегменты:
 
 TCP которые подтверждают процесс установки соединения (handshaking)
