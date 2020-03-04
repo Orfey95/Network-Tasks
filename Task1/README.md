@@ -398,10 +398,8 @@ HTTP (TCP’s segments)
 ```
 4) Выполнить поиск логинов и паролей в трафике HTTP и FTP.
 
-
-HTTP
+HTTP<br>
 ![Logo](images/login_password.png)
-
 
 FTP
 ```
