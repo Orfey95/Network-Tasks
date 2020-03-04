@@ -384,7 +384,7 @@ TCP которые подтверждают процесс завершения 
 - Найти данные протоколы (настроить фильтр):
 
 DNS (UDP/TCP дейтаграммы)
-![Logo](images/DNS.png)
+![Logo](images/TCP_DNS.png)
 DHCP (UDP/TCP дейтаграммы)
 ![Logo](images/DHCP.png)
 HTTP (TCP’s segments)
