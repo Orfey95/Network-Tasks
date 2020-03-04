@@ -414,7 +414,7 @@ tcpdump: listening on any, link-type LINUX_SLL (Linux cooked), capture size 2621
 использованием Iperf3. (https://ru.wikipedia.org/wiki/Iperf). Public Iperf3 servers
 (https://iperf.cc/)
 
-Server
+Server (TCP)
 ```
 vagrant@EPUAKHAW013DT11:~$ iperf3 -i 10 -s
 -----------------------------------------------------------
@@ -432,7 +432,7 @@ Accepted connection from 10.23.24.103, port 40106
 [  5]   0.00-35.64  sec  0.00 Bytes  0.00 bits/sec                  sender
 [  5]   0.00-35.64  sec  15.1 GBytes  3.64 Gbits/sec                  receiver
 ```
-Client
+Client (UDP)
 ```
 vagrant@EPUAKHAW013DT14:~$ iperf3 -i 10 -w 1M -t 60 -c 10.23.26.135
 Connecting to host 10.23.26.135, port 5201
@@ -446,6 +446,33 @@ Connecting to host 10.23.26.135, port 5201
 [ ID] Interval           Transfer     Bandwidth       Retr
 [  4]   0.00-30.00  sec  15.1 GBytes  4.33 Gbits/sec   45             sender
 [  4]   0.00-30.00  sec  0.00 Bytes  0.00 bits/sec                  receiver
+```
+Server (UDP)
+```
+vagrant@EPUAKHAW013DT11:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.23.26.135 port 5001 connected with 10.23.24.103 port 53189
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec   0.021 ms    0/  893 (0%)
+```
+Client (UDP)
+```
+vagrant@EPUAKHAW013DT14:~$ iperf -u -c 10.23.26.135
+------------------------------------------------------------
+Client connecting to 10.23.26.135, UDP port 5001
+Sending 1470 byte datagrams, IPG target: 11215.21 us (kalman adjust)
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 10.23.24.103 port 53189 connected with 10.23.26.135 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec
+[  3] Sent 893 datagrams
+[  3] Server Report:
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec   0.000 ms    0/  893 (0%)
 ```
 ## 1.d. Диагностика хостов
 1) Выполнить мониторинг сетевой активности локальной системы (команда netstat, ss, iptraf, nc)
