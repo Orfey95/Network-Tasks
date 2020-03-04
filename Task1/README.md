@@ -397,8 +397,17 @@ HTTP (TCP’s segments)
 
 ```
 4) Выполнить поиск логинов и паролей в трафике HTTP и FTP.
-```
 
+HTTP
+![Logo](images/login_password.png)
+FTP
+```
+vagrant@EPUAKHAW013DT11:~$ sudo tcpdump -i any -nv port ftp | egrep -i "USER |PASS "
+tcpdump: listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+        530 Please login with USER and PASS.
+        530 Please login with USER and PASS.
+        USER vagrant
+        PASS vagrant
 ```
 5) Выполнить тестирование пропускной способности сети по протоколам TCP, UDP и SCTP* с
 использованием Iperf3. (https://ru.wikipedia.org/wiki/Iperf). Public Iperf3 servers
