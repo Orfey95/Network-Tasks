@@ -323,13 +323,9 @@ networks (with different subnet masks).
 ## 1.c. Анализ трафика
 1) Выполнить в ОС Windows и Linux
 - Wireshark или Message Analyzer
-```
-
-```
+![Logo](images/WireShark.png)
 - tcpdump
-```
-
-```
+![Logo](images/tcpdump.png)
 2) Захватить трафик на своем хосте
 - Найти кадры Ethernet <br>
 
