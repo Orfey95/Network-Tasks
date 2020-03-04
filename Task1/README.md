@@ -397,9 +397,10 @@ HTTP (TCP’s segments)
 
 ```
 4) Выполнить поиск логинов и паролей в трафике HTTP и FTP.
-
+<br>
 HTTP
 ![Logo](images/login_password.png)
+<br>
 FTP
 ```
 vagrant@EPUAKHAW013DT11:~$ sudo tcpdump -i any -nv port ftp | egrep -i "USER |PASS "
