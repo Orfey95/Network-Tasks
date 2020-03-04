@@ -413,8 +413,39 @@ tcpdump: listening on any, link-type LINUX_SLL (Linux cooked), capture size 2621
 5) Выполнить тестирование пропускной способности сети по протоколам TCP, UDP и SCTP* с
 использованием Iperf3. (https://ru.wikipedia.org/wiki/Iperf). Public Iperf3 servers
 (https://iperf.cc/)
-```
 
+Server
+```
+vagrant@EPUAKHAW013DT11:~$ iperf3 -i 10 -s
+-----------------------------------------------------------
+Server listening on 5201
+-----------------------------------------------------------
+Accepted connection from 10.23.24.103, port 40106
+[  5] local 10.23.26.135 port 5201 connected to 10.23.24.103 port 40108
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-10.00  sec  4.26 GBytes  3.66 Gbits/sec
+[  5]  10.00-20.00  sec  4.33 GBytes  3.72 Gbits/sec
+[  5]  20.00-30.00  sec  4.04 GBytes  3.47 Gbits/sec
+[  5]  30.00-35.64  sec  2.48 GBytes  3.78 Gbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-35.64  sec  0.00 Bytes  0.00 bits/sec                  sender
+[  5]   0.00-35.64  sec  15.1 GBytes  3.64 Gbits/sec                  receiver
+```
+Client
+```
+vagrant@EPUAKHAW013DT14:~$ iperf3 -i 10 -w 1M -t 60 -c 10.23.26.135
+Connecting to host 10.23.26.135, port 5201
+[  4] local 10.23.24.103 port 40108 connected to 10.23.26.135 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-10.00  sec  4.27 GBytes  3.67 Gbits/sec    0    218 KBytes
+[  4]  10.00-20.00  sec  4.34 GBytes  3.72 Gbits/sec   45    228 KBytes
+[  4]  20.00-30.00  sec  4.04 GBytes  3.47 Gbits/sec    0    228 KBytes
+[  4]  20.00-30.00  sec  4.04 GBytes  3.47 Gbits/sec    0    228 KBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-30.00  sec  15.1 GBytes  4.33 Gbits/sec   45             sender
+[  4]   0.00-30.00  sec  0.00 Bytes  0.00 bits/sec                  receiver
 ```
 ## 1.d. Диагностика хостов
 1) Выполнить мониторинг сетевой активности локальной системы (команда netstat, ss, iptraf, nc)
