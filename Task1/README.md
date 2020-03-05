@@ -381,7 +381,7 @@ HTTP (TCP’s segments)
 ![Logo](images/HTTP.png)
 \* TLS (расшифровать зашифрованный трафик)
 ![Logo](images/TCP_TLS.png)
-4) Выполнить поиск логинов и паролей в трафике HTTP и FTP.
+3) Выполнить поиск логинов и паролей в трафике HTTP и FTP.
 
 HTTP<br>
 ![Logo](images/login_password.png)
@@ -395,7 +395,7 @@ tcpdump: listening on any, link-type LINUX_SLL (Linux cooked), capture size 2621
         USER vagrant
         PASS vagrant
 ```
-5) Выполнить тестирование пропускной способности сети по протоколам TCP, UDP и SCTP* с
+4) Выполнить тестирование пропускной способности сети по протоколам TCP, UDP и SCTP* с
 использованием Iperf3. (https://ru.wikipedia.org/wiki/Iperf). Public Iperf3 servers
 (https://iperf.cc/)
 
