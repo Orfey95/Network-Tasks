@@ -77,13 +77,14 @@ Content-Type: application/json
 Content-Length: 26
 ```
 2) Описать назначение всех атрибутов в client request and server response. На примере одного из HTTP request/response описать все header’s атрибуты. 
-```
 
-```
+![Logo](images/http_example.png)
+
 3) Найти еще 7 различных status code. Выполнять только после выполнения задания 1. 
-```
 
-```
+Status 204
+![Logo](images/204.png)
+
 4) Произвести фильтрацию трафика протокола HTTP с помощью tcpdump. Написать два фильтра: 
 - фильтровать по методам протокола HTTP.  
 ```
