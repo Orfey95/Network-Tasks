@@ -190,12 +190,12 @@ curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/p
 ```
 - с определенными правами
 ```
-curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/members | jq '.[] | select(.access_level==30)'
+curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243684/members | jq '.[] | select(.access_level==30)'
 ```
 6) работа с коммитами
 - получить список всех комментариев коммита 
 ```
-curl -X GET --header "Private-Token: 2hQuku5zYXvrgniuFMHL" https://gitlab.com/api/v4/projects/17243684/repository/commits/ada258601aaa37b723cdd5f3a34f51d9bc5beab5/comments | jq ''
+curl -X GET --header "Private-Token: <access_token>" https://gitlab.com/api/v4/projects/17243684/repository/commits/ada258601aaa37b723cdd5f3a34f51d9bc5beab5/comments | jq ''
 ```
 - вставить комментарий в commit в определённую строку от имени пользователя 
 ```
