@@ -79,7 +79,24 @@ Content-Length: 26
 2) Описать назначение всех атрибутов в client request and server response. На примере одного из HTTP request/response описать все header’s атрибуты. 
 
 ![Logo](images/http_example.png)
+```
+Response headers:
+Connection - 
+Content-Length - 
+Content-Type - 
+Date - 
+Keep-Alive - 
+Server - 
 
+Request headers:
+Accept - 
+Accept-Encoding - 
+Accept-Language - 
+Connection - 
+Host - 
+Upgrade-Insecure-Requests - 
+User-Agent -
+```
 3) Найти еще 7 различных status code. Выполнять только после выполнения задания 1. 
 
 Status 204
