@@ -81,21 +81,21 @@ Content-Length: 26
 ![Logo](images/http_example.png)
 ```
 Response headers:
-Connection - 
-Content-Length - 
-Content-Type - 
-Date - 
-Keep-Alive - 
-Server - 
+Connection - Control options for the current connection and list of hop-by-hop response fields.
+Content-Length - The length of the request body in octets.
+Content-Type - The Media type of the body of the request.
+Date - The date and time at which the message was originated.
+Keep-Alive - Allows the sender to hint about how the connection may be used to set a timeout and a maximum amount of requests.
+Server - A name for the server.
 
 Request headers:
-Accept - 
-Accept-Encoding - 
-Accept-Language - 
-Connection - 
-Host - 
-Upgrade-Insecure-Requests - 
-User-Agent -
+Accept - Media type(s) that is/are acceptable for the response.
+Accept-Encoding - List of acceptable encodings.
+Accept-Language - List of acceptable human languages for response.
+Connection - Control options for the current connection and list of hop-by-hop request fields.
+Host - The domain name of the server, and the TCP port number on which the server is listening. The port number may be omitted if the port is the standard port for the service requested.
+Upgrade-Insecure-Requests - Tells a server which (presumably in the middle of a HTTP -> HTTPS migration) hosts mixed content that the client would prefer redirection to HTTPS and can handle.
+User-Agent - The user agent string of the user agent.
 ```
 3) Найти еще 7 различных status code. Выполнять только после выполнения задания 1. 
 
