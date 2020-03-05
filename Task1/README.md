@@ -159,7 +159,7 @@ Starting arp-scan 1.9 with 1024 hosts (http://www.nta-monitor.com/tools/arp-scan
 ```
 - Реализовать систему автоматического обнаружения изменений в локальной сети. 
 ```
-vagrant@EPUAKHAW013DT11:~$ watch -n 1 "sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)' | sort"
+vagrant@EPUAKHAW013DT11:~$ watch -n 1 -d "sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)' | sort"
 
 Every 1.0s: sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'   
 Interface: enp0s8, datalink type: EN10MB (Ethernet)
