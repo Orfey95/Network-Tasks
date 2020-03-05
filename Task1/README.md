@@ -111,6 +111,7 @@ vagrant@networks1:~$ sudo ip link set qlen 2000 dev enp0s8
 ```
 5) Изучение MAC.
 - Найти все доступные MAC-адреса в вашей сети (хосты коллег, ресурсов).
+
 arp
 ```
 vagrant@EPUAKHAW013DT11:~$ sudo arp-scan --interface=enp0s8 --localnet | grep -v '(Unknown)'
