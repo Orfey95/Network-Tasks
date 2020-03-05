@@ -205,4 +205,5 @@ curl -X POST --header "PRIVATE-TOKEN: 2hQuku5zYXvrgniuFMHL" --data "note=TEST&pa
 - создать новый проект с заданным именем в определенной группе; 
 - добавить/удалить/изменить роль пользователя на проекте; 
 - создать/удалить/изменить набор тегов (bug, DEV_env, QA_env, PROD_env, task) для определенного проекта; 
-- создать issue (описание, label) для определенного пользователя, до определенной даты и назначить тег (см,). Если label не существует, то создать. If the milestone is not existing, then it should be created. e)Find all actually marge request and create list of problem line. One record of list must consist from: date_time, name_file, number_line, author, description. Proposed use the Linux command printf. 
+- создать issue (описание, label) для определенного пользователя, до определенной даты и назначить тег (см,). Если label не существует, то создать. If the milestone is not existing, then it should be created.
+- Find all actually marge request and create list of problem line. One record of list must consist from: date_time, name_file, number_line, author, description. Proposed use the Linux command printf. 
