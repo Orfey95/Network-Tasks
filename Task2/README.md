@@ -103,6 +103,14 @@ Status 204
 
 ![Logo](images/204.png)
 
+Status 302
+
+![Logo](images/302.png)
+
+Status 304
+
+![Logo](images/304.png)
+
 4) Произвести фильтрацию трафика протокола HTTP с помощью tcpdump. Написать два фильтра: 
 - фильтровать по методам протокола HTTP.  
 ```
