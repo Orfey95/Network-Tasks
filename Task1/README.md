@@ -99,6 +99,10 @@ Select the starting package size.
 If it sent successfully, select a larger packet size.
 If the package does not receive, then reduce its size by 1 byte until it passes.
 ```
+```
+vagrant@EPUAKHAW013DT11:~$ python3 mtu_scanner.py 8.8.8.8
+MTU is 1500
+```
 - измените длину очереди передачи и промоделируйте ее работу после изменений. Сделайте несколько изменений.
 
 Изменение qlen
