@@ -141,9 +141,15 @@ Status 403
 
 ```
 5) Используя Fiddler выполнить пункт 4. 
-```
 
-```
+Response filter
+
+![Logo](images/fiddler_response_filter.png)
+
+Request filter
+
+![Logo](images/fiddler_request_filter.png)
+
 ## Исследование API GitLab
 Используя утилиту curl написать запросы: 
 1) создание нового проекта
