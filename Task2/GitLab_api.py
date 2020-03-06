@@ -1,3 +1,12 @@
+"""GitLab API
+This script allows the user interact with GitLab API.
+List Function:
+Create project - create new GitLab project in specific group
+Add/delete/change project member - addition or deletion or changing GitLab project member
+Add/delete project tag - addition or deletion GitLab project tag
+Create issue - create new GitLab issue
+"""
+
 import sys
 import requests
 import re
