@@ -105,21 +105,29 @@ def change_tag(act, project_name, user_name, tag_name, ref, private_token):
         sys.exit(__ERROR_ARGUMENT)
 
 
+def create_milestone(project_name, user_name, milestone_name, milestone_id, private_token):
+    user_id = get_user_id_by_name(user_name, private_token)
+    project_id = get_project_id_by_name(project_name, user_id, private_token)
+    response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/milestones?'
+                             f'title={milestone_name}&'
+                             f'private_token={private_token}')
+    milestone_id = get_milestone_id_by_name(milestone_name, user_name, project_name, private_token)
+    return milestone_id
+
+
 def create_issue(project_name, user_name, title, due_date, labels, milestone_name, private_token):
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
     milestone_id = get_milestone_id_by_name(milestone_name, user_name, project_name, private_token)
     if milestone_id != -1:
-        response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/issues?'
-                                 f'title={title}&'
-                                 f'due_date={due_date}&'
-                                 f'labels={labels}&'
-                                 f'milestone_id={milestone_id}&'
-                                 f'private_token={private_token}')
-        return response
-    else:
-        # create milestone
-        pass
+        milestone_id = create_milestone(project_name, user_name, milestone_name, private_token)
+    response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/issues?'
+                             f'title={title}&'
+                             f'due_date={due_date}&'
+                             f'labels={labels}&'
+                             f'milestone_id={milestone_id}&'
+                             f'private_token={private_token}')
+    return response
 
 
 # print(create_project('new_147', 'jhjh', '2hQuku5zYXvrgniuFMHL'))
