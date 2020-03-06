@@ -141,6 +141,14 @@ Server: gws
 Server: gws
 Server: nginx/1.10.3 (Ubuntu)
 ```
+Get ip address and headers
+```
+vagrant@networks1:~$ sudo tcpdump -i any -nn -A -l port 80 | egrep "^[a-zA-Z-]*: | > "
+```
+Get only headers
+```
+vagrant@networks1:~$ sudo tcpdump -i any -nn -A -l port 80 | egrep "^[a-zA-Z-]*: "
+```
 - фильтровать по методу и header’s атрибуту в request протокола HTTP. 
 ```
 vagrant@EPUAKHAW013DT11:~$ sudo tcpdump -i any -nn -A -l | grep "Host:"
