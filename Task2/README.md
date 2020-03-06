@@ -134,11 +134,20 @@ Status 403
 
 - фильтровать по методу и header’s атрибуту в response протокола HTTP.
 ```
-
+vagrant@EPUAKHAW013DT11:~$ sudo tcpdump -i any -nn -A -l | grep "Server:"
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+Server: gws
+Server: gws
+Server: nginx/1.10.3 (Ubuntu)
 ```
 - фильтровать по методу и header’s атрибуту в request протокола HTTP. 
 ```
-
+vagrant@EPUAKHAW013DT11:~$ sudo tcpdump -i any -nn -A -l | grep "Host:"
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+Host: google.com
+Host: ya.ru
 ```
 5) Используя Fiddler выполнить пункт 4. 
 
@@ -207,3 +216,4 @@ curl -X POST --header "PRIVATE-TOKEN: <access_token>" --data "note=TEST&path=REA
 - создать/удалить/изменить набор тегов (bug, DEV_env, QA_env, PROD_env, task) для определенного проекта; 
 - создать issue (описание, label) для определенного пользователя, до определенной даты и назначить тег (см,). Если label не существует, то создать. If the milestone is not existing, then it should be created.
 - Find all actually marge request and create list of problem line. One record of list must consist from: date_time, name_file, number_line, author, description. Proposed use the Linux command printf. 
+
