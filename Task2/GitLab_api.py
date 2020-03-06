@@ -1,6 +1,7 @@
 import sys
 import requests
 import re
+import json
 
 
 __ERROR_ARGUMENT = 2  # problem with arguments
@@ -119,10 +120,8 @@ def create_issue(project_name, user_name, title, due_date, labels, milestone_nam
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
     milestone_id = get_milestone_id_by_name(milestone_name, user_name, project_name, private_token)
-    print(milestone_id)
     if milestone_id == -1:
         milestone_id = create_milestone(project_name, user_name, milestone_name, private_token)
-    print(milestone_id)
     response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/issues?'
                              f'title={title}&'
                              f'due_date={due_date}&'
