@@ -72,6 +72,31 @@ $ vagrant ssh Client-7
 конфигурацию всех необходимых параметров стека TCP/IP даже в том случае, когда сервер не
 предоставил необходимых данных.
 
+The situation is when the client could not get the address from the DHCP server.
+```
+Client-5: Internet Systems Consortium DHCP Client 4.3.5
+Client-5: Copyright 2004-2016 Internet Systems Consortium.
+Client-5: All rights reserved.
+Client-5: For info, please visit https://www.isc.org/software/dhcp/
+Client-5: Listening on LPF/enp0s8/50:46:5e:6e:8c:20
+Client-5: Sending on   LPF/enp0s8/50:46:5e:6e:8c:20
+Client-5: Sending on   Socket/fallback
+Client-5: DHCPDISCOVER on enp0s8 to 255.255.255.255 port 67 interval 3 (xid=0xb4eb951e)
+Client-5: DHCPDISCOVER on enp0s8 to 255.255.255.255 port 67 interval 8 (xid=0xb4eb951e)
+Client-5: No DHCPOFFERS received.
+Client-5: Trying recorded lease 172.16.2.75
+Client-5: bound: renewal in 58115700 seconds.
+```
+Result
+```
+vagrant@EPUAKHAWO13DT20:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:20 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.75/24 brd 172.16.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5246:5eff:fe6e:8c20/64 scope link
+       valid_lft forever preferred_lft forever
+```
 4) Для DHCP-1 и DHCP-2 выдавать сначала динамические адреса, потом фиксированные (по
 Ethernet-адресу).
 
