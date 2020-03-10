@@ -27,7 +27,47 @@ Client-3
     inet6 fe80::5246:5eff:fe6e:8c18/64 scope link
        valid_lft forever preferred_lft forever
 ```
-
+Client-4
+```
+[vagrant@EPUAKHAWO13DT19 ~]$ ip a show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:19 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.41/24 brd 172.16.2.255 scope global noprefixroute dynamic eth1
+       valid_lft 545sec preferred_lft 545sec
+    inet6 fe80::5246:5eff:fe6e:8c19/64 scope link
+       valid_lft forever preferred_lft forever
+```
+Client-5
+```
+vagrant@EPUAKHAWO13DT20:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:20 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.13/24 brd 172.16.2.255 scope global dynamic enp0s8
+       valid_lft 546sec preferred_lft 546sec
+    inet6 fe80::5246:5eff:fe6e:8c20/64 scope link
+       valid_lft forever preferred_lft forever
+```
+Client-6
+```
+vagrant@EPUAKHAWO13DT21:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:21 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.43/24 brd 172.16.2.255 scope global dynamic enp0s8
+       valid_lft 549sec preferred_lft 549sec
+    inet6 fe80::5246:5eff:fe6e:8c21/64 scope link
+       valid_lft forever preferred_lft forever
+```
+Client-7
+```
+$ vagrant ssh Client-7
+[vagrant@EPUAKHAWO13DT22 ~]$ ip a show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:22 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.15/24 brd 172.16.2.255 scope global noprefixroute dynamic eth1
+       valid_lft 520sec preferred_lft 520sec
+    inet6 fe80::5246:5eff:fe6e:8c22/64 scope link
+       valid_lft forever preferred_lft forever
+```
 3) \*Обеспечить получение арендуемого IP только от "своего" сервера. Обеспечить разумную
 конфигурацию всех необходимых параметров стека TCP/IP даже в том случае, когда сервер не
 предоставил необходимых данных.
