@@ -102,6 +102,30 @@ Ethernet-адресу).
 
 5) Добиться полной коннективности*.
 
+Communication within the network
+```
+[vagrant@EPUAKHAWO13DT18 ~]$ ping -c 3 172.16.2.13
+PING 172.16.2.13 (172.16.2.13) 56(84) bytes of data.
+64 bytes from 172.16.2.13: icmp_seq=1 ttl=64 time=0.241 ms
+64 bytes from 172.16.2.13: icmp_seq=2 ttl=64 time=0.203 ms
+64 bytes from 172.16.2.13: icmp_seq=3 ttl=64 time=0.532 ms
+
+--- 172.16.2.13 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.203/0.325/0.532/0.147 ms
+```
+Communication from outside the network
+```
+vagrant@EPUAKHAWO13DT20:~$ ping -c 3 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=49 time=23.6 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=49 time=29.1 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=49 time=22.7 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 22.788/25.186/29.138/2.815 ms
+```
 6) Исследовать. Произвести захват пакетов tcpdump-ом (выполнить захват в файл только
 необходимых пакетов):
 - Первичное получение IP-адреса;
