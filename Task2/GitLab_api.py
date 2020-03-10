@@ -111,7 +111,7 @@ def create_milestone(project_name, user_name, milestone_name, private_token):
     """
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
-    if user_id and project_id != -1:
+    if user_id != -1 and project_id != -1:
         response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/milestones?'
                                  f'title={milestone_name}&'
                                  f'private_token={private_token}')
@@ -165,7 +165,7 @@ def change_member(act, project_name, user_name, member_name, access_level, priva
     member_id = get_user_id_by_name(member_name, private_token)
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
-    if user_id and project_id != -1:
+    if user_id != -1 and project_id != -1:
         if act == 'add':
             response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/members?'
                                      f'user_id={member_id}&'
@@ -205,7 +205,7 @@ def change_tag(act, project_name, user_name, tag_name, ref, private_token):
     """
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
-    if user_id and project_id != -1:
+    if user_id != -1 and project_id != -1:
         if act == 'add':
             response = requests.post(f'https://gitlab.com/api/v4/projects/{project_id}/repository/tags?'
                                      f'tag_name={tag_name}&'
@@ -242,7 +242,7 @@ def create_issue(project_name, user_name, title, due_date, labels, milestone_nam
     """
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
-    if user_id and project_id != -1:
+    if user_id != -1 and project_id != -1:
         milestone_id = get_milestone_id_by_name(milestone_name, user_name, project_name, private_token)
         if milestone_id == -1:
             milestone_id = create_milestone(project_name, user_name, milestone_name, private_token)
