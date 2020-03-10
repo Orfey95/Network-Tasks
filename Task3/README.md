@@ -99,7 +99,21 @@ vagrant@EPUAKHAWO13DT20:~$ ip a show enp0s8
 ```
 4) Для DHCP-1 и DHCP-2 выдавать сначала динамические адреса, потом фиксированные (по
 Ethernet-адресу).
-
+```
+Host Client-7 {
+hardware ethernet 50:46:5E:6E:8C:22;
+fixed-address 172.16.2.88;
+}
+```
+```
+[vagrant@EPUAKHAWO13DT22 ~]$ ip a show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:22 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.88/24 brd 172.16.2.255 scope global noprefixroute dynamic eth1
+       valid_lft 552sec preferred_lft 552sec
+    inet6 fe80::5246:5eff:fe6e:8c22/64 scope link
+       valid_lft forever preferred_lft forever
+```
 5) Добиться полной коннективности*.
 
 Communication within the network
