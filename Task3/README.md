@@ -17,6 +17,17 @@ Clent-4,6 динамически получает адрес от DHCP-2.
 
 ![Logo](images/Topology.png)
 
+Client-3
+```
+[vagrant@EPUAKHAWO13DT18 ~]$ ip a show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:18 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.11/24 brd 172.16.2.255 scope global noprefixroute dynamic eth1
+       valid_lft 561sec preferred_lft 561sec
+    inet6 fe80::5246:5eff:fe6e:8c18/64 scope link
+       valid_lft forever preferred_lft forever
+```
+
 3) \*Обеспечить получение арендуемого IP только от "своего" сервера. Обеспечить разумную
 конфигурацию всех необходимых параметров стека TCP/IP даже в том случае, когда сервер не
 предоставил необходимых данных.
