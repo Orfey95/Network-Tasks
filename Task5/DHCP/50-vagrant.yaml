@@ -1,0 +1,15 @@
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      addresses:
+      - 172.16.2.2/26
+      routes:
+        - to: 0.0.0.0/0
+          via: 172.16.2.1
+          metric: 99
+      nameservers:
+        search: [frolov]
+        addresses: [172.16.2.3]

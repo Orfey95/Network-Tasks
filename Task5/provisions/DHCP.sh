@@ -1,12 +1,9 @@
 #!/bin/bash
 
 
-# Route configuration
-echo '      routes:
-        - to: 0.0.0.0/0
-          via: 172.16.2.1
-          metric: 99
-' | tee -a /etc/netplan/50-vagrant.yaml
+# Netplan configuration
+rm /etc/netplan/50-vagrant.yaml
+cp /vagrant/DHCP/50-vagrant.yaml /etc/netplan
 netplan apply
 # Install DHCP server
 apt install -y isc-dhcp-server
@@ -19,7 +16,7 @@ systemctl enable isc-dhcp-server
 systemctl start isc-dhcp-server
 # Interfaces
 rm /etc/default/isc-dhcp-server
-cp /vagrant/DHCP/isc-dhcp-server /etc/default
+
 # Restart DHCP
 service isc-dhcp-server restart
 # Check status DHCP
@@ -27,9 +24,7 @@ systemctl status isc-dhcp-server
 # DHCP log 
 touch /var/log/dhcpd.log
 chown syslog:adm /var/log/dhcpd.log
-echo '
-local7.*        /var/log/dhcpd.log
-' | tee -a /etc/rsyslog.conf
+if ! grep -q "local7.*        /var/log/dhcpd.log" /etc/rsyslog.conf; then echo "local7.*        /var/log/dhcpd.log" | tee -a /etc/rsyslog.conf; fi
 # DHCP restart
 service rsyslog restart
 service isc-dhcp-server restart

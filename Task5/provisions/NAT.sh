@@ -1,8 +1,9 @@
 #!/bin/bash
 
 
-# Route configuration
-sed -i 's/      dhcp4: true/      dhcp4: true\n      dhcp4-overrides:\n        route-metric: 99/' /etc/netplan/50-vagrant.yaml
+# Netplan configuration
+rm /etc/netplan/50-vagrant.yaml
+cp /vagrant/NAT/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # IpTables configuration
@@ -15,6 +16,8 @@ mkdir /etc/iptables/
 touch /etc/iptables/rules.v4
 iptables-save > /etc/iptables/rules.v4
 
+# Upload iptables-save
 echo "@reboot root iptables-restore < /etc/iptables/rules.v4" >> /etc/crontab
+
 # Enable ip forwarding
 sysctl -w net.ipv4.ip_forward=1
