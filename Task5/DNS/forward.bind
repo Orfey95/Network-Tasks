@@ -1,0 +1,15 @@
+$TTL    86400           ; 1 day
+@       IN SOA DNS. root.DNS.EPAM.LOCAL. (
+        2014110201      ; serial
+        10800           ; refresh (3 hours)
+        900             ; retry (15 minutes)
+        604800          ; expire (1 week)
+        86400           ; minimum (1 day)
+        )
+;
+
+@       IN NS DNS.EPAM.LOCAL.  
+@       IN NS 172.16.2.3
+
+NAT.EPAM.LOCAL.    A  172.16.2.1
+DHCP.EPAM.LOCAL.   A  172.16.2.2
