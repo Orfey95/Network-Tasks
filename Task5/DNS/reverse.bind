@@ -1,14 +1,17 @@
-$TTL    604800
-@       IN SOA DNS. root.DNS.EPAM.LOCAL. (
-        2014110201      ; Serial
-        604800          ; Refresh
-        86400           ; Retry
-        2419200         ; Expire
-        604800 )        ; Negative Cache TTL
-;          
+$TTL 1d
 
-NS DNS.EPAM.LOCAL.  
-NS 172.16.2.3
+@       IN      SOA     DNS.frolov.   root.DNS.frolov. (
+                     2014110201         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800         ; Negative Cache TTL
+		)       
 
-1   PTR   NAT.EPAM.LOCAL.
-2   PTR   DHCP.EPAM.LOCAL.
+@       IN      NS      DNS.
+3       IN      PTR     DNS.frolov.
+
+; also list other computers
+
+1  IN      PTR   NAT
+2  IN      PTR   DHCP
