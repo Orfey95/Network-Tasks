@@ -10,10 +10,11 @@ Create issue - create new GitLab issue
 import sys
 import requests
 import re
-import json
+import getopt
 
 
 __ERROR_ARGUMENT = 2  # problem with arguments
+__SUCCESSFUL = 0  # OK
 
 
 def get_user_id_by_name(user_name, private_token):
@@ -221,7 +222,7 @@ def change_tag(act, project_name, user_name, tag_name, ref, private_token):
         sys.exit(__ERROR_ARGUMENT)
 
 
-def create_issue(project_name, user_name, title, due_date, labels, milestone_name, private_token):
+def create_issue(project_name, user_name, title, due_date, labels, milestone_name, assignee_names, private_token):
     """Issue creation
     :param project_name: str
         Name of project
@@ -242,6 +243,7 @@ def create_issue(project_name, user_name, title, due_date, labels, milestone_nam
     """
     user_id = get_user_id_by_name(user_name, private_token)
     project_id = get_project_id_by_name(project_name, user_id, private_token)
+    assignee_ids = get_user_id_by_name(assignee_names, private_token)
     if user_id != -1 and project_id != -1:
         milestone_id = get_milestone_id_by_name(milestone_name, user_name, project_name, private_token)
         if milestone_id == -1:
@@ -251,14 +253,115 @@ def create_issue(project_name, user_name, title, due_date, labels, milestone_nam
                                  f'due_date={due_date}&'
                                  f'labels={labels}&'
                                  f'milestone_id={milestone_id}&'
+                                 f'assignee_ids={assignee_ids}&'
                                  f'private_token={private_token}')
         return response
     else:
         print('No user or project with this name exists.')
         sys.exit(__ERROR_ARGUMENT)
-        
-        
-# print(create_project('new_147', 'jhjh', '2hQuku5zYXvrgniuFMHL'))
-# print(change_member('add', 'new_pasdgja', 'oleksandr_frolov', 'jkbroker', 30, '2hQuku5zYXvrgniuFMHL'))
-# print(change_tag('add', 'new_pasdgja', 'oleksandr_frolov', 'new_tag', 'master', '2hQuku5zYXvrgniuFMHL'))
-# print(create_issue('new_pasdgja', 'oleksandr_frolov', 'try', '2020-03-11', 'new_label, new_label2', 'n_m2', '2hQuku5zYXvrgniuFMHL'))
+
+
+def manual():
+    print('DESCRIPTION')
+    print('\tA program for work with GitLab API.\n')
+    print('\t-h, --help \n\t\t get help about the program')
+    print('\t-p, --project \n\t\t create project in specific group. '
+          'Example: -p new_project,blabla33,2hQuku5zYXvrgniuFMHL')
+    print('\t-m, --member \n\t\t add or delete or change member of project. '
+          'Example: -m add,new_pasdgja,oleksandr_frolov,jkbroker,30,2hQuku5zYXvrgniuFMHL')
+    print('\t-t, --tag \n\t\t add or delete tag. '
+          'Example: -t add,new_pasdgja,oleksandr_frolov,example,master,2hQuku5zYXvrgniuFMHL')
+    print('\t-i, --issue \n\t\t create issue. '
+          'Example: -i new_pasdgja,oleksandr_frolov,try,2020-03-11,new_label,new_label2,n_m2,jkbroker,2hQuku5zYXvrgniuFMHL\n')
+    print('  Exit status:')
+    print('\t0\t-\tif OK,')
+    print('\t1\t-\tif critical error,')
+    print('\t2\t-\tif problem with arguments.')
+    print('\nAUTHOR')
+    print('\tWritten by Oleksandr Frolov.')
+
+
+def main(argv):
+    """Function for processing script parameters
+        :param argv: list
+            Arguments of script
+        :return: 0
+    """
+    try:
+        opts, args = getopt.getopt(argv, "hp:m:t:i:", ["help", "project=", "member=", "tag=", "issue="])
+    except getopt.GetoptError:
+        print("An error occurred while specifying program parameters. "
+              "To specify the correctness, specify the -h or --help option")
+        sys.exit(__ERROR_ARGUMENT)
+    # print(opts)
+    api_opt = dict()
+    api_opt["check_create_project"] = False
+    api_opt["check_change_member"] = False
+    api_opt["check_change_tag"] = False
+    api_opt["check_create_issue"] = False
+    api_opt["arguments"] = str()
+    for opt, arg in opts:
+        if opt in ('-h', "--help"):
+            manual()
+            sys.exit(__SUCCESSFUL)
+        elif opt in ("-p", "--project"):
+            api_opt["check_create_project"] = True
+            api_opt["arguments"] = arg
+        elif opt in ("-m", "--member"):
+            api_opt["check_change_member"] = True
+            api_opt["arguments"] = arg
+        elif opt in ("-t", "--tag"):
+            api_opt["check_change_tag"] = True
+            api_opt["arguments"] = arg
+        elif opt in ("-i", "--issue"):
+            api_opt["check_create_issue"] = True
+            api_opt["arguments"] = arg
+    ########
+    # -p new_project,blabla33,2hQuku5zYXvrgniuFMHL
+    if api_opt["check_create_project"]:
+        try:
+            arguments = api_opt["arguments"].split(",")
+            print(create_project(arguments[0], arguments[1], arguments[2]))
+        except:
+            print("Not enough arguments!")
+            sys.exit(__ERROR_ARGUMENT)
+    # -m add,new_pasdgja,oleksandr_frolov,jkbroker,30,2hQuku5zYXvrgniuFMHL
+    if api_opt["check_change_member"]:
+        try:
+            arguments = api_opt["arguments"].split(",")
+            if arguments[0] == 'add':
+                print(change_member(arguments[0], arguments[1], arguments[2], arguments[3], int(arguments[4]), arguments[5]))
+            if arguments[0] == 'del':
+                print(change_member(arguments[0], arguments[1], arguments[2], arguments[3], 0, arguments[4]))
+            if arguments[0] == 'change':
+                print(change_member(arguments[0], arguments[1], arguments[2], arguments[3], int(arguments[4]), arguments[5]))
+        except:
+            print("Not enough arguments!")
+            sys.exit(__ERROR_ARGUMENT)
+    # -t add,new_pasdgja,oleksandr_frolov,example,master,2hQuku5zYXvrgniuFMHL
+    if api_opt["check_change_tag"]:
+        try:
+            arguments = api_opt["arguments"].split(",")
+            if arguments[0] == 'add':
+                print(change_tag(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]))
+            if arguments[0] == 'del':
+                print(change_tag(arguments[0], arguments[1], arguments[2], arguments[3], "", arguments[4]))
+        except:
+            print("Not enough arguments!")
+            sys.exit(__ERROR_ARGUMENT)
+    # -i new_pasdgja,oleksandr_frolov,try,2020-03-11,new_label,new_label2,n_m2,jkbroker,2hQuku5zYXvrgniuFMHL
+    if api_opt["check_create_issue"]:
+        argument_label = str()
+        try:
+            arguments = api_opt["arguments"].split(",")
+            for x in range(4, len(arguments)-3):
+                argument_label += "," + arguments[x]
+            print(argument_label)
+            print(create_issue(arguments[0], arguments[1], arguments[2], arguments[3], argument_label[1:], arguments[len(arguments)-3], arguments[len(arguments)-2], arguments[len(arguments)-1]))
+        except:
+            print("Not enough arguments!")
+            sys.exit(__ERROR_ARGUMENT)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
