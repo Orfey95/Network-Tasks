@@ -1,0 +1,17 @@
+$TTL 1d
+
+@       IN      SOA     DNS.frolov.   root.DNS.frolov. (
+                     2014110201         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800         ; Negative Cache TTL
+		)       
+
+@       IN      NS      DNS.
+3       IN      PTR     DNS.frolov.
+
+; also list other computers
+
+1  IN      PTR   NAT.frolov.
+2  IN      PTR   DHCP.frolov.
