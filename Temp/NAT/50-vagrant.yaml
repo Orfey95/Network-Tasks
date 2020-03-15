@@ -13,6 +13,11 @@ network:
     enp0s9:
       addresses:
       - 172.16.2.1/26
+      routes:
+        - to: 172.16.2.96/29
+          via: 172.16.2.13
+        - to: 172.16.2.64/27
+          via: 172.16.2.23
       nameservers:
         search: [frolov]
         addresses: [172.16.2.3]
