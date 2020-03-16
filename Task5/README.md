@@ -13,7 +13,7 @@ net 3: имеет nat доступ к сети epam;<br>
 net-dmz: имеет выход в inet (сеть EPAM) через сеть net 3 (отдельный роутер Rdmz3 хост с
 двумя интерфейсами).
 
-<div style="text-align:center"><img src="images/topology.png" /></div>
+<img align="center" src="images/topology.png" />
 
 
 3) Настроить:
