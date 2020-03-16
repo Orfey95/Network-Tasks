@@ -1,8 +1,0 @@
-zone "frolov" {
-        type master;
-        file "/var/lib/bind/forward.bind";
-        };
-zone "2.16.172.in-addr.arpa" {
-        type master;
-        file "/var/lib/bind/reverse.bind";
-        };

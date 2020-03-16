@@ -41,5 +41,89 @@ Vagrant.configure("2") do |config|
 			vb.memory = 512
 			vb.cpus = 2
 		end
-	end		
+	end
+	# ROUTERS
+	config.vm.define 'Router13' do |node|
+		node.vm.box = "ubuntu/bionic64" 
+		node.vm.hostname = "EPUAKHAWO13DT13"
+		node.vm.network "private_network", type: "dhcp", mac: "50465E6E8C13", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_3"
+		node.vm.network "private_network", ip: "172.16.2.97", netmask: "255.255.255.248", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_1"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Router-13.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Router13"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	config.vm.define 'Router23' do |node|
+		node.vm.box = "centos/7" 
+		node.vm.hostname = "EPUAKHAWO13DT23"
+		node.vm.network "private_network", type: "dhcp", mac: "50465E6E8C23", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_3"
+		node.vm.network "private_network", ip: "172.16.2.65", netmask: "255.255.255.224", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_2"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Router-23.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Router23"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	# CLIENTS
+	config.vm.define 'Client11' do |node|
+		node.vm.box = "ubuntu/bionic64" 
+		node.vm.hostname = "EPUAKHAWO13DT11"
+		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_1"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Client-11.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Client11"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	config.vm.define 'Client12' do |node|
+		node.vm.box = "centos/7" 
+		node.vm.hostname = "EPUAKHAWO13DT12"
+		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_1"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Client-12.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Client12"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	config.vm.define 'Client21' do |node|
+		node.vm.box = "ubuntu/bionic64" 
+		node.vm.hostname = "EPUAKHAWO13DT21"
+		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_2"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Client-21.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Client21"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	config.vm.define 'Client22' do |node|
+		node.vm.box = "centos/7" 
+		node.vm.hostname = "EPUAKHAWO13DT22"
+		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_2"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Client-22.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Client22"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
 end

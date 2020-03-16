@@ -3,6 +3,7 @@ options {
 
         forwarders {
           172.16.2.3;
+		  10.23.0.3;
         };
 
         listen-on {

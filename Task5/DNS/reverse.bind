@@ -8,10 +8,10 @@ $TTL 1d
                          604800         ; Negative Cache TTL
 		)       
 
-@       IN      NS      DNS.
-3       IN      PTR     DNS.frolov.
 
+@       IN      NS     DNS.frolov.
+
+3       IN      PTR    DNS.frolov.
+1       IN      PTR    NAT.frolov.
+2       IN      PTR    DHCP.frolov.
 ; also list other computers
-
-1  IN      PTR   NAT
-2  IN      PTR   DHCP

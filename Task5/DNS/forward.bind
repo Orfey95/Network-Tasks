@@ -8,12 +8,11 @@ $TTL 1d
                          604800         ; Negative Cache TTL
 		)       
 
+
+@       IN      NS     DNS.frolov.
 @       IN      A      172.16.2.3
 
-@       IN      NS     DNS
-DNS  IN      A   172.16.2.3
-
+DNS     IN      A      172.16.2.3
+NAT     IN      A      172.16.2.1
+DHCP    IN      A      172.16.2.2
 ; also list other computers
-
-NAT  IN      A   172.16.2.1
-DHCP  IN      A   172.16.2.2

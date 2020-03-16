@@ -1,0 +1,12 @@
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      dhcp4: true
+      dhcp4-overrides:
+        route-metric: 99
+      nameservers:
+        search: [frolov]
+        addresses: [172.16.2.3]

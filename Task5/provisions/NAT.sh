@@ -11,13 +11,14 @@ iptables -A FORWARD -i enp0s8 -j ACCEPT
 iptables -A FORWARD -o enp0s8 -j ACCEPT
 iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
 
-# Save IpTables configuration after reboot
-mkdir /etc/iptables/
-touch /etc/iptables/rules.v4
+# Install iptables-persistent
+DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 
 # Upload iptables-save
-echo "@reboot root iptables-restore < /etc/iptables/rules.v4" >> /etc/crontab
+if ! grep -q "@reboot root iptables-restore < /etc/iptables/rules.v4" /etc/crontab; 
+then echo "@reboot root iptables-restore < /etc/iptables/rules.v4" >> /etc/crontab; 
+fi
 
 # Enable ip forwarding
 sysctl -w net.ipv4.ip_forward=1
