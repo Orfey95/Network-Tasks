@@ -1,8 +1,14 @@
+key DHCP_UPDATER {
+        algorithm HMAC-MD5.SIG-ALG.REG.INT;
+        secret ;
+        };
 zone "frolov" {
         type master;
         file "/var/lib/bind/forward.bind";
+        allow-update { key DHCP-UPDATER; };
         };
 zone "2.16.172.in-addr.arpa" {
         type master;
         file "/var/lib/bind/reverse.bind";
+        allow-update { key DHCP-UPDATER; };
         };

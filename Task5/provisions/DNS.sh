@@ -9,6 +9,13 @@ netplan apply
 # Install bind9
 apt install -y bind9
 
+# Create key for dynamic DNS
+cd /vagrant/key
+rm *
+dnssec-keygen -a HMAC-MD5 -b 128 -r /dev/urandom -n USER DHCP_UPDATER
+private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')
+echo "private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')" > /home/vagrant/.bash_profile
+
 # Check status bind9
 systemctl status bind9
 
@@ -25,6 +32,9 @@ cp -rf /vagrant/DNS/reverse.bind /var/lib/bind
 
 # named.conf.local configuration
 cp -rf /vagrant/DNS/named.conf.local /etc/bind
+
+# Insert key in /etc/bind/named.conf.local
+sed -i "s/secret ;/secret \"$private_key\";/" /etc/bind/named.conf.local; 
 
 # Restart bind9
 service bind9 restart
@@ -45,3 +55,5 @@ netplan apply
 
 # resolved.conf configuration
 sed -i 's/#DNS=/DNS=172.16.2.3/' /etc/systemd/resolved.conf
+
+

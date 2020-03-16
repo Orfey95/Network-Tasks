@@ -6,6 +6,10 @@ rm /etc/netplan/50-vagrant.yaml
 cp /vagrant/DHCP/50-vagrant.yaml /etc/netplan
 netplan apply
 
+# Create key for dynamic DNS
+private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')
+echo "private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')" > /home/vagrant/.bash_profile
+
 # IpTables configuration
 iptables -A FORWARD -i enp0s8 -j ACCEPT
 iptables -A FORWARD -o enp0s8 -j ACCEPT
@@ -21,6 +25,9 @@ apt install -y isc-dhcp-server
 # Configuration
 rm /etc/dhcp/dhcpd.conf
 cp /vagrant/DHCP/dhcpd.conf /etc/dhcp
+
+# Insert key in /etc/bind/named.conf.local
+sed -i "s/secret ;/secret \"$private_key\";/" /etc/dhcp/dhcpd.conf; 
 
 # Enable DHCP
 systemctl enable isc-dhcp-server
