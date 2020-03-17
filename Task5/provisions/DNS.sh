@@ -36,6 +36,9 @@ cp -rf /vagrant/DNS/named.conf.local /etc/bind
 # Insert key in /etc/bind/named.conf.local
 sed -i "s/secret ;/secret \"$private_key\";/" /etc/bind/named.conf.local; 
 
+# Chown bind
+chown bind:bind /var/lib/bind
+
 # Restart bind9
 service bind9 restart
 

@@ -1,17 +1,23 @@
+acl "trusterd" {
+        172.16.2.0/26;
+        172.16.2.64/27;
+        172.16.2.96/29;
+};
+
 options {
-        directory "/var/cache/bind";
+        directory "/var/lib/bind";
 
         forwarders {
-          172.16.2.3;
-		  10.23.0.3;
+        172.16.2.3;
+		10.23.0.3;
         };
 
         listen-on {
         172.16.2.3;
         127.0.0.1;
         };
-
-        dnssec-validation auto;
+        dnssec-enable yes;
+        dnssec-validation no;
 
         auth-nxdomain no;    # conform to RFC1035
         listen-on-v6 { any; };
