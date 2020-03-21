@@ -5,10 +5,10 @@ key DHCP_UPDATER {
 zone "frolov" {
         type master;
         file "/var/lib/bind/forward.bind";
-        allow-update { key DHCP-UPDATER; };
+        allow-update { key DHCP_UPDATER; };
         };
 zone "2.16.172.in-addr.arpa" {
         type master;
         file "/var/lib/bind/reverse.bind";
-        allow-update { key DHCP-UPDATER; };
+        allow-update { key DHCP_UPDATER; };
         };

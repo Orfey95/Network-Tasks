@@ -6,10 +6,6 @@ rm /etc/netplan/50-vagrant.yaml
 cp /vagrant/DHCP/50-vagrant.yaml /etc/netplan
 netplan apply
 
-# Create key for dynamic DNS
-private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')
-echo "private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')" > /home/vagrant/.bash_profile
-
 # IpTables configuration
 iptables -A FORWARD -i enp0s8 -j ACCEPT
 iptables -A FORWARD -o enp0s8 -j ACCEPT
@@ -27,7 +23,7 @@ rm /etc/dhcp/dhcpd.conf
 cp /vagrant/DHCP/dhcpd.conf /etc/dhcp
 
 # Insert key in /etc/bind/named.conf.local
-sed -i "s/secret ;/secret \"$private_key\";/" /etc/dhcp/dhcpd.conf; 
+sed -i "s/secret ;/secret \"$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')\";/" /etc/dhcp/dhcpd.conf; 
 
 # Enable DHCP
 systemctl enable isc-dhcp-server
@@ -44,11 +40,6 @@ service isc-dhcp-server restart
 
 # Check status DHCP
 systemctl status isc-dhcp-server
-
-# DHCP log 
-touch /var/log/dhcpd.log
-chown syslog:adm /var/log/dhcpd.log
-if ! grep -q "local7.*        /var/log/dhcpd.log" /etc/rsyslog.conf; then echo "local7.*        /var/log/dhcpd.log" | tee -a /etc/rsyslog.conf; fi
 
 # DHCP restart
 service rsyslog restart

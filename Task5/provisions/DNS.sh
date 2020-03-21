@@ -13,28 +13,26 @@ apt install -y bind9
 cd /vagrant/key
 rm *
 dnssec-keygen -a HMAC-MD5 -b 128 -r /dev/urandom -n USER DHCP_UPDATER
-private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')
-echo "private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')" > /home/vagrant/.bash_profile
+#private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')
+#echo "private_key=$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')" > /home/vagrant/.bash_profile
 
 # Check status bind9
 systemctl status bind9
 
 # named.conf.options configuration
-rm /etc/bind/named.conf.options
-cp /vagrant/DNS/named.conf.options /etc/bind
+cp -f /vagrant/DNS/named.conf.options /etc/bind
 
 # forward.bind configuration
-rm /var/lib/bind/forward.bind
-cp /vagrant/DNS/forward.bind /var/lib/bind
+cp -f /vagrant/DNS/forward.bind /var/lib/bind
 
 # reverse.bind configuration
-cp -rf /vagrant/DNS/reverse.bind /var/lib/bind
+cp -f /vagrant/DNS/reverse.bind /var/lib/bind
 
 # named.conf.local configuration
-cp -rf /vagrant/DNS/named.conf.local /etc/bind
+cp -f /vagrant/DNS/named.conf.local /etc/bind
 
 # Insert key in /etc/bind/named.conf.local
-sed -i "s/secret ;/secret \"$private_key\";/" /etc/bind/named.conf.local; 
+sed -i "s/secret ;/secret \"$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')\";/" /etc/bind/named.conf.local; 
 
 # Chown bind
 chown bind:bind /var/lib/bind
@@ -58,5 +56,3 @@ netplan apply
 
 # resolved.conf configuration
 sed -i 's/#DNS=/DNS=172.16.2.3/' /etc/systemd/resolved.conf
-
-
