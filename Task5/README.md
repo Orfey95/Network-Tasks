@@ -30,6 +30,8 @@ DNS Server:  172.16.2.3
 ```
 4) Настроить на одном из хостов в сетях net1 и net2 сервер nginx. На сервере nginx развернуть
 сайт (одна страница, ваше резюме). На DNS настроить Round robin DNS.
+
+Ping test:
 ```
 vagrant@EPUAKHAWO13DT3:~$ ping nginx -c 1 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1
 172.16.2.66
@@ -43,6 +45,59 @@ vagrant@EPUAKHAWO13DT3:~$ ping nginx -c 1 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]
 172.16.2.66
 vagrant@EPUAKHAWO13DT3:~$ ping nginx -c 1 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1
 172.16.2.66
+```
+Curl test:
+```
+vagrant@EPUAKHAWO13DT3:~$ curl nginx
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task 5</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h2> You get the answer  from <u>172.16.2.66 </u></h2>
+
+<h1>Welcome to my page!</h1>
+<p>I am a future DevOps engineer. (Maybe).</p><br>
+
+
+<p><em>Thank you for reading my CV.</em></p>
+<p><em>Your Oleksandr Frolov ©</em></p>
+</body>
+</html>
+```
+```
+vagrant@EPUAKHAWO13DT3:~$ curl nginx
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task 5</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h2> You get the answer  from <u>172.16.2.99 </u></h2>
+
+<h1>Welcome to my page!</h1>
+<p>I am a future DevOps engineer. (Maybe).</p><br>
+
+
+<p><em>Thank you for reading my CV.</em></p>
+<p><em>Your Oleksandr Frolov ©</em></p>
+</body>
+</html>
 ```
 5) Настроить автоматическую регистрацию DHCP клиентов в DNS сервере.
 
