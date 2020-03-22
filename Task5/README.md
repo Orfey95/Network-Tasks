@@ -107,7 +107,7 @@ vagrant@EPUAKHAWO13DT3:~$ cat /var/lib/bind/forward.bind
 $ORIGIN .
 $TTL 86400      ; 1 day
 frolov                  IN SOA  DNS.frolov. root.DNS.frolov. (
-                                2014110751 ; serial
+                                2014110216 ; serial
                                 604800     ; refresh (1 week)
                                 86400      ; retry (1 day)
                                 2419200    ; expire (4 weeks)
@@ -119,16 +119,21 @@ $ORIGIN frolov.
 DHCP                    A       172.16.2.2
 DNS                     A       172.16.2.3
 $TTL 300        ; 5 minutes
-EPUAKHAWO13DT12         A       172.16.2.102
+EPUAKHAWO13DT11         A       172.16.2.99
+                        TXT     "00647b0b20eee72f318165b7aab873352e"
+EPUAKHAWO13DT12         A       172.16.2.100
                         TXT     "008134311960cd14b5e0484e44facdad4d"
 EPUAKHAWO13DT13         A       172.16.2.13
                         TXT     "31febc311e6f7923be8264c0a781358458"
+EPUAKHAWO13DT21         A       172.16.2.66
+                        TXT     "00929faf9d42613da2dabb0717099eb0cc"
 EPUAKHAWO13DT22         A       172.16.2.68
                         TXT     "006a368f7750b4d455ea3aa7bf19bd3c73"
 EPUAKHAWO13DT23         A       172.16.2.23
                         TXT     "00476175d29aac97026caefc027089b38f"
 $TTL 86400      ; 1 day
 NAT                     A       172.16.2.1
+$TTL 300        ; 5 minutes
 nginx                   A       172.16.2.66
                         A       172.16.2.99
 ```
@@ -138,7 +143,7 @@ vagrant@EPUAKHAWO13DT3:~$ cat /var/lib/bind/reverse.bind
 $ORIGIN .
 $TTL 86400      ; 1 day
 2.16.172.in-addr.arpa   IN SOA  DNS.frolov. root.DNS.frolov. (
-                                2014110572 ; serial
+                                2014110213 ; serial
                                 604800     ; refresh (1 week)
                                 86400      ; retry (1 day)
                                 2419200    ; expire (4 weeks)
@@ -148,7 +153,7 @@ $TTL 86400      ; 1 day
 $ORIGIN 2.16.172.in-addr.arpa.
 1                       PTR     NAT.frolov.
 $TTL 300        ; 5 minutes
-102                     PTR     EPUAKHAWO13DT12.frolov.
+100                     PTR     EPUAKHAWO13DT12.frolov.
 13                      PTR     EPUAKHAWO13DT13.frolov.
 $TTL 86400      ; 1 day
 2                       PTR     DHCP.frolov.
@@ -156,6 +161,8 @@ $TTL 300        ; 5 minutes
 23                      PTR     EPUAKHAWO13DT23.frolov.
 $TTL 86400      ; 1 day
 3                       PTR     DNS.frolov.
-66                      PTR     nginx.frolov.
-99                      PTR     nginx.frolov.
+$TTL 300        ; 5 minutes
+66                      PTR     EPUAKHAWO13DT21.frolov.
+68                      PTR     EPUAKHAWO13DT22.frolov.
+99                      PTR     EPUAKHAWO13DT11.frolov.
 ```
