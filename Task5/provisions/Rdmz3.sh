@@ -4,8 +4,8 @@
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
 rm /etc/sysconfig/network-scripts/ifcfg-eth2
-cp /vagrant/Router23/ifcfg-eth1 /etc/sysconfig/network-scripts
-cp /vagrant/Router23/ifcfg-eth2 /etc/sysconfig/network-scripts
+cp /vagrant/Rdmz3/ifcfg-eth1 /etc/sysconfig/network-scripts
+cp /vagrant/Rdmz3/ifcfg-eth2 /etc/sysconfig/network-scripts
 if ! grep -q "DEFROUTE=no" /etc/sysconfig/network-scripts/ifcfg-eth0; 
 then echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0; 
 fi
