@@ -45,6 +45,8 @@ vagrant@EPUAKHAWO13DT3:~$ ping nginx -c 1 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]
 172.16.2.66
 ```
 5) Настроить автоматическую регистрацию DHCP клиентов в DNS сервере.
+
+Forward zone:
 ```
 vagrant@EPUAKHAWO13DT3:~$ cat /var/lib/bind/forward.bind
 $ORIGIN .
@@ -74,4 +76,31 @@ $TTL 86400      ; 1 day
 NAT                     A       172.16.2.1
 nginx                   A       172.16.2.66
                         A       172.16.2.99
+```
+Reverse zone:
+```
+vagrant@EPUAKHAWO13DT3:~$ cat /var/lib/bind/reverse.bind
+$ORIGIN .
+$TTL 86400      ; 1 day
+2.16.172.in-addr.arpa   IN SOA  DNS.frolov. root.DNS.frolov. (
+                                2014110572 ; serial
+                                604800     ; refresh (1 week)
+                                86400      ; retry (1 day)
+                                2419200    ; expire (4 weeks)
+                                604800     ; minimum (1 week)
+                                )
+                        NS      DNS.frolov.
+$ORIGIN 2.16.172.in-addr.arpa.
+1                       PTR     NAT.frolov.
+$TTL 300        ; 5 minutes
+102                     PTR     EPUAKHAWO13DT12.frolov.
+13                      PTR     EPUAKHAWO13DT13.frolov.
+$TTL 86400      ; 1 day
+2                       PTR     DHCP.frolov.
+$TTL 300        ; 5 minutes
+23                      PTR     EPUAKHAWO13DT23.frolov.
+$TTL 86400      ; 1 day
+3                       PTR     DNS.frolov.
+66                      PTR     nginx.frolov.
+99                      PTR     nginx.frolov.
 ```
