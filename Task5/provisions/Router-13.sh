@@ -17,9 +17,15 @@ iptables -A FORWARD -i enp0s9 -j ACCEPT
 iptables -A FORWARD -o enp0s9 -j ACCEPT
 iptables -t nat -A POSTROUTING -o enp0s9 -j MASQUERADE
 
-# Install iptables-persistent
+# Check and install iptables-persistent
+iptables_persistent_status=$(dpkg -l | grep iptables-persistent)
+if [[ $iptables_persistent_status == "" ]]
+then
+echo "iptables-persistent is not installed"
 apt update
 DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
+else echo "iptables-persistent is already installed"
+fi
 iptables-save > /etc/iptables/rules.v4
 
 # Install DHCP relay

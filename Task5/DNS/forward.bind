@@ -15,4 +15,7 @@ $TTL 1d
 DNS     IN      A      172.16.2.3
 NAT     IN      A      172.16.2.1
 DHCP    IN      A      172.16.2.2
-; also list other computers
+; nginx servers
+$TTL 300 ; 5 minutes
+nginx   IN      A      172.16.2.66
+nginx   IN      A      172.16.2.99

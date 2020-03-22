@@ -14,4 +14,3 @@ $TTL 1d
 3       IN      PTR    DNS.frolov.
 1       IN      PTR    NAT.frolov.
 2       IN      PTR    DHCP.frolov.
-; also list other computers

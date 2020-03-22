@@ -11,19 +11,25 @@ iptables -A FORWARD -i enp0s8 -j ACCEPT
 iptables -A FORWARD -o enp0s8 -j ACCEPT
 iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
 
-# Install iptables-persistent
+# Check and install iptables-persistent
+iptables_persistent_status=$(dpkg -l | grep iptables-persistent)
+if [[ $iptables_persistent_status == "" ]]
+then
+echo "iptables-persistent is not installed"
+apt update
 DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
+else echo "iptables-persistent is already installed"
+fi
 iptables-save > /etc/iptables/rules.v4
 
 # Install DHCP server
 apt install -y isc-dhcp-server
 
 # Configuration
-rm /etc/dhcp/dhcpd.conf
-cp /vagrant/DHCP/dhcpd.conf /etc/dhcp
+cp -f /vagrant/DHCP/dhcpd.conf /etc/dhcp
 
 # Insert key in /etc/bind/named.conf.local
-sed -i "s/secret ;/secret \"$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')\";/" /etc/dhcp/dhcpd.conf; 
+sed -i "s!secret ;!secret \"$(cat /vagrant/key/*.private | grep Key: | awk '{print $2}')\";!" /etc/dhcp/dhcpd.conf; 
 
 # Enable DHCP
 systemctl enable isc-dhcp-server
@@ -32,8 +38,7 @@ systemctl enable isc-dhcp-server
 systemctl start isc-dhcp-server
 
 # Interfaces
-rm /etc/default/isc-dhcp-server
-cp /vagrant/DHCP/isc-dhcp-server /etc/default
+cp -f /vagrant/DHCP/isc-dhcp-server /etc/default
 
 # Restart DHCP
 service isc-dhcp-server restart
@@ -41,6 +46,3 @@ service isc-dhcp-server restart
 # Check status DHCP
 systemctl status isc-dhcp-server
 
-# DHCP restart
-service rsyslog restart
-service isc-dhcp-server restart
