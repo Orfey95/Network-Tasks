@@ -20,6 +20,75 @@ net-dmz: имеет выход в inet (сеть EPAM) через сеть net 3
 
 ![Logo](images/topology.png)
 
+Network DMZ
+```
+[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --get-active-zones
+internal
+  interfaces: eth2
+external
+  interfaces: eth0 eth1
+```
+```
+[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --list-all --zone=external
+external (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth0 eth1
+  sources:
+  services: ssh
+  ports:
+  protocols:
+  masquerade: yes
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+```
+[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --list-all --zone=internal
+internal (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth2
+  sources:
+  services: ssh mdns dhcpv6-client
+  ports:
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+Test 1 (external connection):
+```
+vagrant@EPUAKHAWO13DT3:~$ ping 172.16.2.109 -c 1
+PING 172.16.2.109 (172.16.2.109) 56(84) bytes of data.
+64 bytes from 172.16.2.109: icmp_seq=1 ttl=63 time=0.546 ms
+
+--- 172.16.2.109 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.546/0.546/0.546/0.000 ms
+
+vagrant@EPUAKHAWO13DT3:~$ curl 172.16.2.109
+curl: (7) Failed to connect to 172.16.2.109 port 80: No route to host
+```
+Test 2 (internal connection):
+```
+[vagrant@EPUAKHAWO13DT35 ~]$ ping 172.16.2.109 -c 1
+PING 172.16.2.109 (172.16.2.109) 56(84) bytes of data.
+64 bytes from 172.16.2.109: icmp_seq=1 ttl=64 time=0.251 ms
+
+--- 172.16.2.109 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.251/0.251/0.251/0.000 ms
+
+[vagrant@EPUAKHAWO13DT35 ~]$ curl 172.16.2.109
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Welcome to CentOS</title>
+```
 3) Настроить:
 - один DNS и DHCP;
 - настроить nat для доступа в интернет из локальной сети;
