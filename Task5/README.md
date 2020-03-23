@@ -22,6 +22,14 @@ net-dmz: имеет выход в inet (сеть EPAM) через сеть net 3
 
 Network DMZ
 ```
+vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT33
+EPUAKHAWO13DT33.frolov has address 172.16.2.33
+vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT34
+EPUAKHAWO13DT34.frolov has address 172.16.2.109
+vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT35
+EPUAKHAWO13DT35.frolov has address 172.16.2.106
+```
+```
 [vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --get-active-zones
 internal
   interfaces: eth2
@@ -62,28 +70,28 @@ internal (active)
 ```
 Test 1 (external connection):
 ```
-vagrant@EPUAKHAWO13DT3:~$ ping 172.16.2.109 -c 1
-PING 172.16.2.109 (172.16.2.109) 56(84) bytes of data.
-64 bytes from 172.16.2.109: icmp_seq=1 ttl=63 time=0.546 ms
+vagrant@EPUAKHAWO13DT3:~$ ping EPUAKHAWO13DT34 -c 1
+PING EPUAKHAWO13DT34.frolov (172.16.2.109) 56(84) bytes of data.
+64 bytes from EPUAKHAWO13DT34.frolov (172.16.2.109): icmp_seq=1 ttl=63 time=0.508 ms
 
---- 172.16.2.109 ping statistics ---
+--- EPUAKHAWO13DT34.frolov ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.546/0.546/0.546/0.000 ms
+rtt min/avg/max/mdev = 0.508/0.508/0.508/0.000 ms
 
-vagrant@EPUAKHAWO13DT3:~$ curl 172.16.2.109
-curl: (7) Failed to connect to 172.16.2.109 port 80: No route to host
+vagrant@EPUAKHAWO13DT3:~$ curl EPUAKHAWO13DT34
+curl: (7) Failed to connect to EPUAKHAWO13DT34 port 80: No route to host
 ```
 Test 2 (internal connection):
 ```
-[vagrant@EPUAKHAWO13DT35 ~]$ ping 172.16.2.109 -c 1
-PING 172.16.2.109 (172.16.2.109) 56(84) bytes of data.
-64 bytes from 172.16.2.109: icmp_seq=1 ttl=64 time=0.251 ms
+[vagrant@EPUAKHAWO13DT35 ~]$ ping EPUAKHAWO13DT34 -c 1
+PING EPUAKHAWO13DT34.frolov (172.16.2.109) 56(84) bytes of data.
+64 bytes from EPUAKHAWO13DT34.frolov (172.16.2.109): icmp_seq=1 ttl=64 time=0.398 ms
 
---- 172.16.2.109 ping statistics ---
+--- EPUAKHAWO13DT34.frolov ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.251/0.251/0.251/0.000 ms
+rtt min/avg/max/mdev = 0.398/0.398/0.398/0.000 ms
 
-[vagrant@EPUAKHAWO13DT35 ~]$ curl 172.16.2.109
+[vagrant@EPUAKHAWO13DT35 ~]$ curl EPUAKHAWO13DT34
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
