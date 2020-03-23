@@ -45,3 +45,13 @@ systemctl status dhcrelay
 
 # Install bind-utils for host, nslookup and etc.
 yum --quiet install -y bind-utils
+
+# FireWall configuration
+systemctl start firewalld
+systemctl enable firewalld
+firewall-cmd --set-default-zone=external
+firewall-cmd --zone=external --change-interface=eth0
+firewall-cmd --zone=external --change-interface=eth1
+firewall-cmd --zone=internal --change-interface=eth2
+firewall-cmd --zone=internal --permanent --remove-service=samba-client
+firewall-cmd --reload

@@ -3,7 +3,7 @@
 
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
-cp /vagrant/Clientdmz/ifcfg-eth1 /etc/sysconfig/network-scripts
+cp /vagrant/Clientdmz2/ifcfg-eth1 /etc/sysconfig/network-scripts
 if ! grep -q "DEFROUTE=no" /etc/sysconfig/network-scripts/ifcfg-eth0; 
 then echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0; 
 fi

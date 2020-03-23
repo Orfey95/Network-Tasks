@@ -143,15 +143,28 @@ Vagrant.configure("2") do |config|
 			vb.cpus = 2
 		end
 	end
-	config.vm.define 'Clientdmz' do |node|
+	config.vm.define 'Clientdmz1' do |node|
 		node.vm.box = "centos/7" 
 		node.vm.hostname = "EPUAKHAWO13DT34"
 		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
 			virtualbox__intnet: "internal_network_dmz"
 		node.vm.synced_folder ".", "/vagrant"
-		node.vm.provision "shell", path: "provisions/Client-dmz.sh"
+		node.vm.provision "shell", path: "provisions/Client-dmz1.sh"
 		node.vm.provider "virtualbox" do |vb|
-			vb.name = "Clientdmz"
+			vb.name = "Clientdmz1"
+			vb.memory = 512
+			vb.cpus = 2
+		end
+	end
+	config.vm.define 'Clientdmz2' do |node|
+		node.vm.box = "centos/7" 
+		node.vm.hostname = "EPUAKHAWO13DT35"
+		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+			virtualbox__intnet: "internal_network_dmz"
+		node.vm.synced_folder ".", "/vagrant"
+		node.vm.provision "shell", path: "provisions/Client-dmz2.sh"
+		node.vm.provider "virtualbox" do |vb|
+			vb.name = "Clientdmz2"
 			vb.memory = 512
 			vb.cpus = 2
 		end
