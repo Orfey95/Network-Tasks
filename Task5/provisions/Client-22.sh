@@ -14,3 +14,6 @@ systemctl restart network
 
 # Install bind-utils for host, nslookup and etc.
 yum --quiet install -y bind-utils
+
+# Restart interfaces
+systemctl restart network
