@@ -2,10 +2,14 @@
 
 
 # Set DHCP_HOSTNAME
+if ! grep -q "hostname: Client-6" /etc/netplan/50-cloud-init.yaml; then
 echo "      dhcp4-overrides:
         hostname: Client-6" | tee -a /etc/netplan/50-vagrant.yaml
+fi
+	
 # Reboot interface
 netplan apply
+
 # Configure DHCP Client
 echo "
 
@@ -19,6 +23,7 @@ lease {
   rebind 2 2022/1/12 00:00:01;
   expire 2 2022/1/12 00:00:01;
 }" | tee /etc/dhcp/dhclient.conf
+
 # If DHCP fails, static IP is added
 if [ $(ip a show enp0s8 | egrep "inet ") -eq ""]; then
 echo "You could not get the address via DHCP!"
