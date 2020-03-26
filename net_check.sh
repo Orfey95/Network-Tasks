@@ -4,6 +4,13 @@
 # On script logging
 set -x
 
+# Add to cron
+script_name=$(realpath $0)
+if ! grep -q "$script_name" /etc/crontab; then 
+   echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
+fi
+
+
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -57,6 +64,8 @@ elif [ "$os" = "Centos" ]; then
    connection_check_first_try
    connection_check_second_try 
 fi
+
+
 
 # Off script logging
 set +x
