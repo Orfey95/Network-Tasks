@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# On script logging
+# Turn on script logging
 set -x
 
 # Check operation system
@@ -76,7 +76,3 @@ elif [ "$os" = "Centos" ]; then
    connection_check_second_try 
 fi
 
-
-
-# Off script logging
-set +x
