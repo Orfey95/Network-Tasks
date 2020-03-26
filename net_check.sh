@@ -51,7 +51,7 @@ if [ "$os" = "Ubuntu" ]; then
 # If Centos 7
 elif [ "$os" = "Centos" ]; then
    # Check wget
-   if echo $(yum list installed | grep wget) -eq ""; then
+   if [ "$(yum list installed | grep wget)" = "" ]; then
       yum install -y wget > /dev/null
    fi
    connection_check_first_try
