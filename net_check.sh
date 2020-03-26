@@ -4,10 +4,6 @@
 # Turn on script logging
 set -x
 
-# Make the file executable
-script_name=$(realpath $0)
-chmod +x $script_name
-
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -17,6 +13,10 @@ else
    echo "Your operating system does not support this script."
    exit 0
 fi
+
+# Make the file executable
+script_name=$(realpath $0)
+chmod +x $script_name
 
 # Add to cron
 if ! grep -q "$script_name" /etc/crontab; then
