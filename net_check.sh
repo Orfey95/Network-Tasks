@@ -4,6 +4,10 @@
 # Turn on script logging
 set -x
 
+# Make the file executable
+script_name=$(realpath $0)
+chmod +x $script_name
+
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -15,8 +19,7 @@ else
 fi
 
 # Add to cron
-script_name=$(realpath $0)
-if ! grep -q "$script_name" /etc/crontab; then 
+if ! grep -q "$script_name" /etc/crontab; then
    echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
 fi
 
@@ -28,10 +31,10 @@ connection_check_first_try(){
    # If connection false, first try
    else
       # Network restart
-	  if [ "$os" = "Ubuntu" ]; then
+          if [ "$os" = "Ubuntu" ]; then
          netplan apply
-	  elif [ "$os" = "Centos" ]; then
-	     systemctl restart network	  
+          elif [ "$os" = "Centos" ]; then
+             systemctl restart network
       fi
       sleep 1
    fi
@@ -56,23 +59,22 @@ if [ "$os" = "Ubuntu" ]; then
    connection_check_second_try
 # If Centos 7
 elif [ "$os" = "Centos" ]; then
-   # Check wget, first try 
+   # Check wget, first try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       yum install -y wget > /dev/null
    fi
-   # Check wget, second try 
+   # Check wget, second try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       systemctl restart network
-	  sleep 1
+          sleep 1
       yum install -y wget > /dev/null
    else
       exit 0
    fi
-   # Check wget, third try 
+   # Check wget, third try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       reboot
    fi
    connection_check_first_try
-   connection_check_second_try 
+   connection_check_second_try
 fi
-
