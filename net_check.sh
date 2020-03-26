@@ -66,7 +66,7 @@ elif [ "$os" = "Centos" ]; then
    # Check wget, second try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       systemctl restart network
-          sleep 1
+      sleep 1
       yum install -y wget > /dev/null
    else
       exit 0
