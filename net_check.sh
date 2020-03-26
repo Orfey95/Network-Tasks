@@ -4,13 +4,6 @@
 # On script logging
 set -x
 
-# Add to cron
-script_name=$(realpath $0)
-if ! grep -q "$script_name" /etc/crontab; then 
-   echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
-fi
-
-
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -19,6 +12,12 @@ elif echo $(hostnamectl | grep "Operating System: ") | grep -q "CentOS Linux 7";
 else
    echo "Your operating system does not support this script."
    exit 0
+fi
+
+# Add to cron
+script_name=$(realpath $0)
+if ! grep -q "$script_name" /etc/crontab; then 
+   echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
 fi
 
 connection_check_first_try(){
@@ -57,9 +56,21 @@ if [ "$os" = "Ubuntu" ]; then
    connection_check_second_try
 # If Centos 7
 elif [ "$os" = "Centos" ]; then
-   # Check wget
+   # Check wget, first try 
    if [ "$(yum list installed | grep wget)" = "" ]; then
       yum install -y wget > /dev/null
+   fi
+   # Check wget, second try 
+   if [ "$(yum list installed | grep wget)" = "" ]; then
+      systemctl restart network
+	  sleep 1
+      yum install -y wget > /dev/null
+   else
+      exit 0
+   fi
+   # Check wget, third try 
+   if [ "$(yum list installed | grep wget)" = "" ]; then
+      reboot
    fi
    connection_check_first_try
    connection_check_second_try 
