@@ -4,6 +4,12 @@
 # Turn on script logging
 set -x
 
+# Chech date time
+date
+
+# Get email
+email=$1
+
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -20,7 +26,7 @@ chmod +x $script_name
 
 # Add to cron
 if ! grep -q "$script_name" /etc/crontab; then
-   echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
+   echo "*/5 * * * * root $script_name $email > /dev/null 2>&1" >> /etc/crontab
 fi
 
 connection_check_first_try(){
@@ -66,7 +72,7 @@ elif [ "$os" = "Centos" ]; then
    # Check wget, second try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       systemctl restart network
-      sleep 1
+          sleep 1
       yum install -y wget > /dev/null
    else
       exit 0
@@ -77,4 +83,17 @@ elif [ "$os" = "Centos" ]; then
    fi
    connection_check_first_try
    connection_check_second_try
+fi
+
+# Email report 
+echo $(!!) > mail.txt
+# For Ubuntu 18.04
+if [ "$os" = "Ubuntu" ]; then
+   DEBIAN_FRONTEND=noninteractive apt install -y postfix
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t $email
+   rm mail.txt
+fi
+if [ "$os" = "Centos" ]; then
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t $email
+   rm mail.txt
 fi
