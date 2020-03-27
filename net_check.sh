@@ -89,7 +89,7 @@ fi
 echo $(!!) > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
-   DEBIAN_FRONTEND=noninteractive apt install -y postfix
+   DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
    echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t $email
    rm mail.txt
 fi
