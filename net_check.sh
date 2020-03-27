@@ -18,13 +18,14 @@ else
 fi
 
 # Make the file executable
-script_name=$(realpath $0)
+script_name=$(realpath log_net_check.sh)
 chmod +x $script_name
 
 # Add to cron
 if ! grep -q "$script_name" /etc/crontab; then
    echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
 fi
+
 
 connection_check_first_try(){
    wget -q --spider google.com
@@ -35,7 +36,7 @@ connection_check_first_try(){
    else
       # Network restart
           if [ "$os" = "Ubuntu" ]; then
-         netplan apply
+             netplan apply
           elif [ "$os" = "Centos" ]; then
              systemctl restart network
       fi
@@ -69,7 +70,7 @@ elif [ "$os" = "Centos" ]; then
    # Check wget, second try
    if [ "$(yum list installed | grep wget)" = "" ]; then
       systemctl restart network
-          sleep 1
+      sleep 1
       yum install -y wget > /dev/null
    else
       exit 0
@@ -80,17 +81,4 @@ elif [ "$os" = "Centos" ]; then
    fi
    connection_check_first_try
    connection_check_second_try
-fi
-
-# Email report 
-echo $(!!) > mail.txt
-# For Ubuntu 18.04
-if [ "$os" = "Ubuntu" ]; then
-   DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
-   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
-   rm mail.txt
-fi
-if [ "$os" = "Centos" ]; then
-   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
-   rm mail.txt
 fi
