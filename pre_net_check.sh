@@ -32,6 +32,9 @@ if [ "$os" = "Centos" ]; then
    fi
 fi
 
+# Download log_net_check.sh
+wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/log_net_check.sh
+
 # Download net_check.sh
 wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh
 
@@ -39,13 +42,13 @@ wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh
 bash net_check.sh > mail.txt
 
 # Email report 
-#echo $(!!) > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
    echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
+# For Centos 7
 if [ "$os" = "Centos" ]; then
    echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
