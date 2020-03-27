@@ -7,9 +7,6 @@ set -x
 # Chech date time
 date
 
-# Get email
-email=$1
-
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -39,17 +36,17 @@ fi
 wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh 
 
 # Run net_check.sh
-bash net_check.sh $email
+bash net_check.sh
 
 # Email report 
 echo $(!!) > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
-   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t $email
+   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
 if [ "$os" = "Centos" ]; then
-   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t $email
+   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
