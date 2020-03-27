@@ -21,11 +21,11 @@ bash net_check.sh > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
-   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
 # For Centos 7
 if [ "$os" = "Centos" ]; then
-   echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
