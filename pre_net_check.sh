@@ -39,7 +39,7 @@ wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/log_net_chec
 wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh
 
 # Run net_check.sh
-bash net_check.sh > mail.txt
+bash net_check.sh 2>&1 | tee mail.txt
 
 # Email report 
 # For Ubuntu 18.04
