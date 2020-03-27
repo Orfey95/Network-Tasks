@@ -17,7 +17,7 @@ fi
 
 # Install wget for Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
-   if [ "$(dpkg -l | grep iptables-persistent)" == "" ]; then
+   if [ "$(dpkg -l | grep wget)" == "" ]; then
       apt install -y wget > /dev/null
    fi
 fi
