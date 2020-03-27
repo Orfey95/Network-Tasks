@@ -33,13 +33,13 @@ if [ "$os" = "Centos" ]; then
 fi
 
 # Download net_check.sh
-wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh 
+wget https://raw.githubusercontent.com/Orfey95/Network-Tasks/master/net_check.sh
 
 # Run net_check.sh
-bash net_check.sh
+bash net_check.sh > mail.txt
 
 # Email report 
-echo $(!!) > mail.txt
+#echo $(!!) > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
