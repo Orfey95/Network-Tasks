@@ -44,9 +44,9 @@ bash net_check.sh 2>&1 | tee mail.txt
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
    echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
-   rm mail.txt
+   #rm mail.txt
 fi
 if [ "$os" = "Centos" ]; then
    echo "Subject: Logging pre_net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
-   rm mail.txt
+   #rm mail.txt
 fi
