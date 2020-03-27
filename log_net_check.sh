@@ -15,7 +15,7 @@ else
 fi
 
 # Run net_check.sh
-bash net_check.sh > mail.txt
+bash $(echo $(pwd)/net_check.sh) 2>&1 | tee mail.txt
 
 # Email report 
 # For Ubuntu 18.04
