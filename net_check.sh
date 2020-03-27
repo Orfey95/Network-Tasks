@@ -7,9 +7,6 @@ set -x
 # Chech date time
 date
 
-# Get email
-email=$1
-
 # Check operation system
 if echo $(hostnamectl | grep "Operating System: ") | grep -q "Ubuntu 18.04"; then
    os="Ubuntu"
@@ -26,7 +23,7 @@ chmod +x $script_name
 
 # Add to cron
 if ! grep -q "$script_name" /etc/crontab; then
-   echo "*/5 * * * * root $script_name $email > /dev/null 2>&1" >> /etc/crontab
+   echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
 fi
 
 connection_check_first_try(){
@@ -90,10 +87,10 @@ echo $(!!) > mail.txt
 # For Ubuntu 18.04
 if [ "$os" = "Ubuntu" ]; then
    DEBIAN_FRONTEND=noninteractive apt install -y postfix > /dev/null
-   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t $email
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
 if [ "$os" = "Centos" ]; then
-   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t $email
+   echo "Subject: Logging net_check.sh" | cat - mail.txt | sendmail -t sasha7692@gmail.com
    rm mail.txt
 fi
