@@ -26,7 +26,6 @@ if ! grep -q "$script_name" /etc/crontab; then
    echo "*/5 * * * * root $script_name > /dev/null 2>&1" >> /etc/crontab
 fi
 
-
 connection_check_first_try(){
    wget -q --spider google.com
    # If connection true, first try
