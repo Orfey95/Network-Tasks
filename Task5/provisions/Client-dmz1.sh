@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+set -x
+
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
 cp /vagrant/Clientdmz1/ifcfg-eth1 /etc/sysconfig/network-scripts
@@ -20,3 +22,6 @@ yum --quiet install -y epel-release
 yum --quiet install -y nginx
 systemctl start nginx
 systemctl enable nginx
+
+# Restart interfaces
+systemctl restart network

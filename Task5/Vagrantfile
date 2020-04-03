@@ -146,7 +146,7 @@ Vagrant.configure("2") do |config|
 	config.vm.define 'Clientdmz1' do |node|
 		node.vm.box = "centos/7" 
 		node.vm.hostname = "EPUAKHAWO13DT34"
-		node.vm.network "private_network", type: "dhcp", dns_nameserver: "172.16.2.3", dns_search: "frolov",
+		node.vm.network "private_network", type: "dhcp", mac: "50465E6E8C43", dns_nameserver: "172.16.2.3", dns_search: "frolov",
 			virtualbox__intnet: "internal_network_dmz"
 		node.vm.synced_folder ".", "/vagrant"
 		node.vm.provision "shell", path: "provisions/Client-dmz1.sh"

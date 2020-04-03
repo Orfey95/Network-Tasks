@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+set -x
+
 # Netplan configuration
 rm /etc/netplan/50-vagrant.yaml
 cp /vagrant/DHCP/50-vagrant.yaml /etc/netplan

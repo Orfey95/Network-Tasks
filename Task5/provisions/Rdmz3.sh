@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+set -x
+
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
 rm /etc/sysconfig/network-scripts/ifcfg-eth2
@@ -46,12 +48,15 @@ systemctl status dhcrelay
 # Install bind-utils for host, nslookup and etc.
 yum --quiet install -y bind-utils
 
+# Restart interfaces
+systemctl restart network
+
 # FireWall configuration
-systemctl start firewalld
-systemctl enable firewalld
-firewall-cmd --set-default-zone=external
-firewall-cmd --zone=external --change-interface=eth0
-firewall-cmd --zone=external --change-interface=eth1
-firewall-cmd --zone=internal --change-interface=eth2
-firewall-cmd --zone=internal --permanent --remove-service=samba-client
-firewall-cmd --reload
+#systemctl start firewalld
+#systemctl enable firewalld
+#firewall-cmd --set-default-zone=external
+#firewall-cmd --zone=external --change-interface=eth0
+#firewall-cmd --zone=external --change-interface=eth1
+#firewall-cmd --zone=internal --change-interface=eth2
+#firewall-cmd --zone=internal --permanent --remove-service=samba-client
+#firewall-cmd --reload

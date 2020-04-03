@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+set -x
+
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
 cp /vagrant/Client22/ifcfg-eth1 /etc/sysconfig/network-scripts

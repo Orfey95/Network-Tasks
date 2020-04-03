@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+set -x
+
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
 rm /etc/sysconfig/network-scripts/ifcfg-eth2
