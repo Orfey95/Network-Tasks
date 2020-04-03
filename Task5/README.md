@@ -21,82 +21,29 @@ net-dmz: имеет выход в inet (сеть EPAM) через сеть net 3
 ![Logo](images/topology.png)
 
 Network DMZ
-```
-vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT33
-EPUAKHAWO13DT33.frolov has address 172.16.2.33
-vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT34
-EPUAKHAWO13DT34.frolov has address 172.16.2.109
-vagrant@EPUAKHAWO13DT3:~$ host EPUAKHAWO13DT35
-EPUAKHAWO13DT35.frolov has address 172.16.2.106
-```
-```
-[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --get-active-zones
-internal
-  interfaces: eth2
-external
-  interfaces: eth0 eth1
-```
-```
-[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --list-all --zone=external
-external (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces: eth0 eth1
-  sources:
-  services: ssh
-  ports:
-  protocols:
-  masquerade: yes
-  forward-ports:
-  source-ports:
-  icmp-blocks:
-  rich rules:
-```
-```
-[vagrant@EPUAKHAWO13DT33 ~]$ sudo firewall-cmd --list-all --zone=internal
-internal (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces: eth2
-  sources:
-  services: ssh mdns dhcpv6-client
-  ports:
-  protocols:
-  masquerade: no
-  forward-ports:
-  source-ports:
-  icmp-blocks:
-  rich rules:
-```
-Test 1 (external connection):
-```
-vagrant@EPUAKHAWO13DT3:~$ ping EPUAKHAWO13DT34 -c 1
-PING EPUAKHAWO13DT34.frolov (172.16.2.109) 56(84) bytes of data.
-64 bytes from EPUAKHAWO13DT34.frolov (172.16.2.109): icmp_seq=1 ttl=63 time=0.508 ms
 
---- EPUAKHAWO13DT34.frolov ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.508/0.508/0.508/0.000 ms
-
-vagrant@EPUAKHAWO13DT3:~$ curl EPUAKHAWO13DT34
-curl: (7) Failed to connect to EPUAKHAWO13DT34 port 80: No route to host
+NAT Server
 ```
-Test 2 (internal connection):
+vagrant@EPUAKHAWO13DT1:~$ ip a show enp0s8
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:3f:6a:46 brd ff:ff:ff:ff:ff:ff
+    inet 10.23.26.8/22 brd 10.23.27.255 scope global dynamic enp0s8
+       valid_lft 246534sec preferred_lft 246534sec
+    inet6 fe80::a00:27ff:fe3f:6a46/64 scope link
+       valid_lft forever preferred_lft forever
 ```
-[vagrant@EPUAKHAWO13DT35 ~]$ ping EPUAKHAWO13DT34 -c 1
-PING EPUAKHAWO13DT34.frolov (172.16.2.109) 56(84) bytes of data.
-64 bytes from EPUAKHAWO13DT34.frolov (172.16.2.109): icmp_seq=1 ttl=64 time=0.398 ms
-
---- EPUAKHAWO13DT34.frolov ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.398/0.398/0.398/0.000 ms
-
-[vagrant@EPUAKHAWO13DT35 ~]$ curl EPUAKHAWO13DT34
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <title>Welcome to CentOS</title>
+DMZ-Nginx-Server
 ```
+[vagrant@EPUAKHAWO13DT34 ~]$ ip a show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 50:46:5e:6e:8c:43 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.2.106/29 brd 172.16.2.111 scope global noprefixroute dynamic eth1
+       valid_lft 375sec preferred_lft 375sec
+    inet6 fe80::5246:5eff:fe6e:8c43/64 scope link
+       valid_lft forever preferred_lft forever
+
+```
+![Logo](images/dmz_server.png.png)
 3) Настроить:
 - один DNS и DHCP;
 - настроить nat для доступа в интернет из локальной сети;
