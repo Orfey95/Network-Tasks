@@ -43,7 +43,7 @@ DMZ-Nginx-Server
        valid_lft forever preferred_lft forever
 
 ```
-![Logo](images/dmz_server.png.png)
+![Logo](images/dmz_server.png)
 3) Настроить:
 - один DNS и DHCP;
 - настроить nat для доступа в интернет из локальной сети;
