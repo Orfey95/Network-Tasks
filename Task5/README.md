@@ -20,7 +20,7 @@ net-dmz: имеет выход в inet (сеть EPAM) через сеть net 3
 
 ![Logo](images/topology.png)
 
-# Network DMZ
+### Network DMZ
 
 NAT Server
 ```
