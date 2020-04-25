@@ -51,11 +51,11 @@ fi
 systemctl restart network
 
 # FireWall configuration
-#systemctl start firewalld
-#systemctl enable firewalld
-#firewall-cmd --set-default-zone=external
-#firewall-cmd --zone=external --change-interface=eth0
-#firewall-cmd --zone=external --change-interface=eth1
-#firewall-cmd --zone=internal --change-interface=eth2
-#firewall-cmd --zone=internal --permanent --remove-service=samba-client
-#firewall-cmd --reload
+rpm -qa | grep iptables-services
+if [ $? -eq 1 ]; then
+	yum install -y iptables-services
+	systemctl enable iptables
+	iptables -A FORWARD -o eth1 -d 172.16.2.64/27 -m conntrack --ctstate NEW -j REJECT
+	iptables -A FORWARD -o eth1 -d 172.16.2.96/29 -m conntrack --ctstate NEW -j REJECT
+	service iptables save
+fi
