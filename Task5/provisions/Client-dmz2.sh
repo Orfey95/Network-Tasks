@@ -15,7 +15,10 @@ echo "GATEWAYDEV=eth1" | tee /etc/sysconfig/network
 systemctl restart network
 
 # Install bind-utils for host, nslookup and etc.
-yum --quiet install -y bind-utils
+rpm -qa | grep bind-utils
+if [ $? -eq 1 ]; then
+	yum --quiet install -y bind-utils
+fi
 
 # Restart interfaces
 systemctl restart network

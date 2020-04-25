@@ -9,16 +9,19 @@ cp /vagrant/DNS/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # Install bind9
-apt install -y bind9
+dpkg -l | grep "bind9 "
+if [ $? -eq 1 ]; then
+	apt install -y bind9
+fi
+
+# Stop bind9
+systemctl stop bind9
 
 # Create key for dynamic DNS
 cd /vagrant/key
 rm *
 dnssec-keygen -a HMAC-MD5 -b 128 -r /dev/urandom -n USER DHCP_UPDATER
 cd
-
-# Check status bind9
-systemctl status bind9
 
 # named.conf.options configuration
 cp -f /vagrant/DNS/named.conf.options /etc/bind
@@ -38,21 +41,22 @@ sed -i "s!secret ;!secret \"$(cat /vagrant/key/*.private | grep Key: | awk '{pri
 # Chown bind
 chown bind:bind /var/lib/bind
 
-# Restart bind9
-service bind9 restart
+# Start bind9
+systemctl start bind9
+
+# Check status bind9
+systemctl status bind9
 
 # Install resolvconf
-apt update
-apt install resolvconf
-echo -e "nameserver 172.16.2.3\nsearch frolov" | tee /etc/resolvconf/resolv.conf.d/tail
-ln -sf /etc/resolvconf/resolv.conf.d/tail /etc/resolv.conf
-systemctl restart resolvconf
-
-# Save vagrant NAT configuration
-if ! grep -q "use-dns: no" /etc/netplan/50-cloud-init.yaml; 
-then sed -i 's/            dhcp4: true/            dhcp4: true\n            dhcp4-overrides:\n              use-dns: no\n            nameservers:\n              search: [frolov]/' /etc/netplan/50-cloud-init.yaml; 
+dpkg -l | grep resolvconf
+if [ $? -eq 1 ]; then
+	apt update
+	apt install -y resolvconf
+	echo -e "nameserver 172.16.2.3\nsearch frolov" | tee /etc/resolvconf/resolv.conf.d/tail
+	ln -sf /etc/resolvconf/resolv.conf.d/tail /etc/resolv.conf
+	systemctl restart resolvconf
 fi
-touch /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+
 echo "network: {config: disabled}" | tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 netplan apply
 

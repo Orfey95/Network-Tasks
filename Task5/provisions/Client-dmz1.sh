@@ -15,13 +15,19 @@ echo "GATEWAYDEV=eth1" | tee /etc/sysconfig/network
 systemctl restart network
 
 # Install bind-utils for host, nslookup and etc.
-yum --quiet install -y bind-utils
+rpm -qa | grep bind-utils
+if [ $? -eq 1 ]; then
+	yum --quiet install -y bind-utils
+fi
 
 # Install nginx
-yum --quiet install -y epel-release
-yum --quiet install -y nginx
-systemctl start nginx
-systemctl enable nginx
+rpm -qa | grep nginx
+if [ $? -eq 1 ]; then
+	yum --quiet install -y epel-release
+	yum --quiet install -y nginx
+	systemctl start nginx
+	systemctl enable nginx
+fi
 
 # Restart interfaces
 systemctl restart network

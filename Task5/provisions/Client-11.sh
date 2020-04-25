@@ -9,13 +9,13 @@ cp /vagrant/Client11/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # Check and install nginx
-nginx_status=$(dpkg -l | grep nginx)
-if [[ $nginx_status == "" ]]
-then
-echo "Nginx is not installed"
-apt update
-apt install -y nginx
-else echo "Nginx is already installed"
+dpkg -l | grep nginx
+if [ $? -eq 1 ]; then
+	echo "Nginx is not installed"
+	apt update
+	apt install -y nginx
+else 
+	echo "Nginx is already installed"
 fi
 
 # Upload my html page

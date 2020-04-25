@@ -12,7 +12,7 @@ network:
         addresses: [172.16.2.3]
     enp0s9:
       addresses:
-      - 172.16.2.1/26
+        - 172.16.2.1/26
       routes:
         - to: 172.16.2.96/29
           via: 172.16.2.13
