@@ -2,28 +2,24 @@
 
 
 # Install DHCP server
-apt install -y isc-dhcp-server
+if ! dpkg -l | grep isc-dhcp-server; then
+	apt install -y isc-dhcp-server
+fi
 
 # Configuration
-rm /etc/dhcp/dhcpd.conf
-cp /vagrant/DHCP-1/dhcpd.conf /etc/dhcp
+cp -f /vagrant/DHCP-1/dhcpd.conf /etc/dhcp
 
 # Enable DHCP
 systemctl enable isc-dhcp-server
 
+# Stop DHCP
+systemctl stop isc-dhcp-server
+
+# Interfaces
+cp -f /vagrant/DHCP-1/isc-dhcp-server /etc/default
+
 # Start DHCP
 systemctl start isc-dhcp-server
 
-# Interfaces
-rm /etc/default/isc-dhcp-server
-cp /vagrant/DHCP-1/isc-dhcp-server /etc/default
-
-# Restart DHCP
-service isc-dhcp-server restart
-
 # Check status DHCP
 systemctl status isc-dhcp-server
-
-# DHCP restart
-service rsyslog restart
-service isc-dhcp-server restart

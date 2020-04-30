@@ -1,22 +1,29 @@
 #!/bin/bash
 
+set -e
 
 # Set DHCP_HOSTNAME
-echo "DHCP_HOSTNAME=Client-4" >> /etc/sysconfig/network-scripts/ifcfg-eth1
+if ! grep -q "DHCP_HOSTNAME=Client4" /etc/sysconfig/network-scripts/ifcfg-eth1; then
+	echo "DHCP_HOSTNAME=Client4" >> /etc/sysconfig/network-scripts/ifcfg-eth1
+fi
 
 # Reboot interface
-ifdown eth1
-ifup eth1
-
-# If DHCP fails, static IP is added
-if [ $(ip a show eth1 | egrep "inet ") -eq ""]; then
-echo "You could not get the address via DHCP!"
-echo "Therefore, you have been assigned a temporary static address!"
-mv /etc/sysconfig/network-scripts/ifcfg-eth1 /etc/sysconfig/network-scripts/ifcfg-eth1:0
-rm /etc/sysconfig/network-scripts/ifcfg-eth1:1
-touch /etc/sysconfig/network-scripts/ifcfg-eth1:1
-echo "DEVICE="eth1:0"" >> /etc/sysconfig/network-scripts/ifcfg-eth1:1
-echo "IPADDR=172.16.2.74" >> /etc/sysconfig/network-scripts/ifcfg-eth1:1
-echo "NETMASK=255.255.255.0" >> /etc/sysconfig/network-scripts/ifcfg-eth1:1
 systemctl restart network
-fi
+
+# Configure DHCP Client
+new_date=$(date "+%Y/%m/%d %T" -d '2 hour')
+echo "
+timeout 10;
+
+interface \"eth1\" {
+    send host-name \"Client4\";
+}
+
+lease {
+  interface \"eth1\";
+  fixed-address 172.16.2.74;
+  option subnet-mask 255.255.255.0;
+  renew 2 $new_date;
+  rebind 2 $new_date;
+  expire 2 $new_date;
+}" | tee /etc/dhcp/dhclient.conf

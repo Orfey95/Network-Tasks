@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set -x
+set -e
 
 # Interfaces configuration
 rm /etc/sysconfig/network-scripts/ifcfg-eth1
@@ -23,8 +23,7 @@ echo "net.ipv4.ip_forward = 1" | tee /usr/lib/sysctl.d/51-default.conf
 systemctl restart network
 
 # Install dhcp
-rpm -qa | grep "dhcp-[0-9]"
-if [ $? -eq 1 ]; then
+if ! rpm -qa | grep "dhcp-[0-9]"; then
 	yum --quiet install -y dhcp
 fi
 
@@ -45,7 +44,6 @@ systemctl start dhcrelay
 systemctl status dhcrelay
 
 # Install bind-utils for host, nslookup and etc.
-rpm -qa | grep bind-utils
-if [ $? -eq 1 ]; then
+if ! rpm -qa | grep bind-utils; then
 	yum --quiet install -y bind-utils
 fi

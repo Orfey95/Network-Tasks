@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set -x
+set -e
 
 # Netplan configuration
 rm /etc/netplan/50-vagrant.yaml
@@ -9,8 +9,7 @@ cp /vagrant/DHCP/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # Install DHCP server
-dpkg -l | grep isc-dhcp-server
-if [ $? -eq 1 ]; then
+if ! dpkg -l | grep isc-dhcp-server; then
 	apt update
 	apt install -y isc-dhcp-server
 fi

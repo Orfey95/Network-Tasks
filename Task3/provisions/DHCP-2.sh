@@ -2,28 +2,26 @@
 
 
 # Install DHCP server
-yum --quiet install -y dhcp
+if ! rpm -qa | grep "dhcp-[0-9]"; then
+	yum --quiet install -y dhcp
+fi
 
 # Configuration
-rm /etc/dhcp/dhcpd.conf
-cp /vagrant/DHCP-2/dhcpd.conf /etc/dhcp
+cp -f /vagrant/DHCP-2/dhcpd.conf /etc/dhcp
 
 # Enable DHCP
 systemctl enable dhcpd
 
-# Start DHCP
-systemctl start dhcpd
+# Stop DHCP
+systemctl stop dhcpd
+
+touch /var/log/dhcpd.log
 
 # Interfaces
-rm /etc/sysconfig/dhcpd
-cp /vagrant/DHCP-2/dhcpd /etc/sysconfig
+cp -f /vagrant/DHCP-2/dhcpd /etc/sysconfig
 
 # Restart DHCP
-systemctl restart dhcpd
+systemctl start dhcpd
 
 # Check status DHCP
 systemctl status dhcpd
-
-# DHCP restart
-service rsyslog restart
-service dhcpd restart

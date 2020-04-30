@@ -1,32 +1,36 @@
 #!/bin/bash
 
+set -e
 
 # Set DHCP_HOSTNAME
-if ! grep -q "hostname: Client-6" /etc/netplan/50-cloud-init.yaml; then
-echo "      dhcp4-overrides:
-        hostname: Client-6" | tee -a /etc/netplan/50-vagrant.yaml
-fi
+echo "---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s8:
+      dhcp4: true
+      dhcp4-overrides:
+        hostname: Client6
+" | tee /etc/netplan/50-hostname.yaml
 	
 # Reboot interface
 netplan apply
 
 # Configure DHCP Client
+new_date=$(date "+%Y/%m/%d %T" -d '2 hour')
 echo "
-
 timeout 10;
+
+interface \"enp0s8\" {
+    send host-name \"Client6\";
+}
 
 lease {
   interface \"enp0s8\";
   fixed-address 172.16.2.76;
   option subnet-mask 255.255.255.0;
-  renew 2 2022/1/12 00:00:01;
-  rebind 2 2022/1/12 00:00:01;
-  expire 2 2022/1/12 00:00:01;
+  renew 2 $new_date;
+  rebind 2 $new_date;
+  expire 2 $new_date;
 }" | tee /etc/dhcp/dhclient.conf
-
-# If DHCP fails, static IP is added
-if [ $(ip a show enp0s8 | egrep "inet ") -eq ""]; then
-echo "You could not get the address via DHCP!"
-echo "Therefore, you have been assigned a temporary static address!"
-dhclient -v enp0s8
-fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set -x
+set -e
 
 # Netplan configuration
 rm /etc/netplan/50-vagrant.yaml
@@ -9,8 +9,7 @@ cp /vagrant/Client21/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # Check and install nginx
-dpkg -l | grep nginx
-if [ $? -eq 1 ]; then
+if ! dpkg -l | grep nginx; then
 	echo "Nginx is not installed"
 	apt update
 	apt install -y nginx

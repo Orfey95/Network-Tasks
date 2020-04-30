@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set -x
+set -e
 
 # Netplan configuration
 rm /etc/netplan/50-vagrant.yaml
@@ -15,8 +15,7 @@ iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
 iptables -t nat -A PREROUTING -i enp0s8 -p tcp --dport 80 -j DNAT --to-destination 172.16.2.106
 
 # Install iptables-persistent
-dpkg -l | grep iptables-persistent
-if [ $? -eq 1 ]; then
+if ! dpkg -l | grep iptables-persistent; then
 	apt update
 	DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 	iptables-save > /etc/iptables/rules.v4	

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set -x
+set -e
 
 # Netplan configuration
 rm /etc/netplan/50-vagrant.yaml
@@ -9,8 +9,7 @@ cp /vagrant/Router13/50-vagrant.yaml /etc/netplan
 netplan apply
 
 # Install DHCP relay
-dpkg -l | grep isc-dhcp-relay
-if [ $? -eq 1 ]; then
+if ! dpkg -l | grep isc-dhcp-relay; then
 	apt update
 	DEBIAN_FRONTEND=noninteractive apt install -y isc-dhcp-relay
 	sed -i 's/SERVERS=""/SERVERS="172.16.2.2"/' /etc/default/isc-dhcp-relay
